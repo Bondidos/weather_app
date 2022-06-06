@@ -4,9 +4,7 @@ import 'package:latlng/latlng.dart';
 import 'package:weather_app/layers/data/sources/location_data_source.dart';
 
 class LocationDataSourceImpl extends LocationDataSource {
-  LocationDataSourceImpl() {
-    _checkPermission();
-  }
+  LocationDataSourceImpl();
 
   @override
   Future<LatLng> getCurrentPosition() async {

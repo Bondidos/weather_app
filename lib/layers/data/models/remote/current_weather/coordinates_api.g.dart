@@ -8,8 +8,8 @@ part of 'coordinates_api.dart';
 
 CoordinatesApi _$CoordinatesApiFromJson(Map<String, dynamic> json) =>
     CoordinatesApi(
-      lat: json['lat'] as int,
-      lon: json['lon'] as int,
+      lat: (json['lat'] as num).toDouble(),
+      lon: (json['lon'] as num).toDouble(),
     );
 
 Map<String, dynamic> _$CoordinatesApiToJson(CoordinatesApi instance) =>

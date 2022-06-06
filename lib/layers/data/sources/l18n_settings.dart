@@ -1,4 +1,5 @@
 abstract class LocalisationSettings{
-  void setCurrentLanguage(String language);
+  void setRussianLanguage();
+  void setEnglishLanguage();
   String get currentLanguage;
 }

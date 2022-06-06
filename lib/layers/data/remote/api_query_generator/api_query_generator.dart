@@ -1,4 +1,5 @@
 import 'package:latlng/latlng.dart';
+import 'package:weather_app/common/constants.dart';
 import 'package:weather_app/layers/data/sources/l18n_settings.dart';
 import 'package:weather_app/layers/data/sources/location_data_source.dart';
 import 'package:weather_app/layers/data/remote/api_query_generator/api_keys.dart'
@@ -17,7 +18,7 @@ class ApiQueryGenerator {
 
   String get currentLanguage => localisationSettings.currentLanguage;
 
-  String get _currentMeasurement => currentLanguage == param.languageEnglish
+  String get _currentMeasurement => currentLanguage == languageEnglish
       ? param.measurementImperial
       : param.measurementMetric;
 

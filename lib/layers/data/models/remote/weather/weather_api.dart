@@ -1,4 +1,5 @@
 import 'package:json_annotation/json_annotation.dart';
+import 'package:weather_app/layers/domain/models/weather/weather.dart';
 
 part 'weather_api.g.dart';
 
@@ -27,4 +28,7 @@ class WeatherApi {
       _$WeatherApiFromJson(json);
 
   Map<String, dynamic> toJson() => _$WeatherApiToJson(this);
+
+  Weather toWeather() =>
+      Weather(id: id, main: main, description: description, icon: icon);
 }
