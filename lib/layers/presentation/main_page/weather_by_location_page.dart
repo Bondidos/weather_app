@@ -16,7 +16,7 @@ class WeatherByLocationPage extends StatelessWidget {
     return SafeArea(
       child: Scaffold(
         body: BlocProvider<MainPageCubit>(
-          create: (context) => di.inj<MainPageCubit>()..fetchCurrentWeather(),
+          create: (context) => di.inj<MainPageCubit>()..init(),
           child: BlocConsumer<MainPageCubit, MainPageState>(
             listener: (context, state) {
               if (state is MainPageError) _showSnackBar(context, state.message);

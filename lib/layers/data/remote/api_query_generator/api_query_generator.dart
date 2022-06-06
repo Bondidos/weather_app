@@ -32,4 +32,30 @@ class ApiQueryGenerator {
       key.applicationId: param.applicationKey
     };
   }
+
+  Future<Map<String, dynamic>> generateHourlyWeatherForecastQuery() async {
+    LatLng currentPosition = await locationDataSource.getCurrentPosition();
+    return {
+      key.longitude: currentPosition.longitude,
+      key.latitude: currentPosition.latitude,
+      key.applicationId: param.applicationKey,
+      key.measurement: _currentMeasurement,
+      key.language: currentLanguage,
+      key.excludeFields: [
+        param.alertsMessages,
+        param.minutelyForecast,
+        param.currentlyForecast,
+      ].unpack(),
+    };
+  }
+}
+
+extension UnpackList on List<String> {
+  String unpack() {
+    StringBuffer fields = StringBuffer();
+    forEach((element) {
+      fields.write(element + ',');
+    });
+    return fields.toString();
+  }
 }
