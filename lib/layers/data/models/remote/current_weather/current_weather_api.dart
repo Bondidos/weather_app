@@ -1,5 +1,4 @@
 import 'package:json_annotation/json_annotation.dart';
-import 'package:weather_app/layers/data/models/remote/current_weather/coordinates_api.dart';
 import 'package:weather_app/layers/data/models/remote/current_weather/main_api.dart';
 import 'package:weather_app/layers/data/models/remote/weather/weather_api.dart';
 import 'package:weather_app/layers/domain/models/current_weather/current_weather.dart';
@@ -11,14 +10,8 @@ class CurrentWeatherApi {
   @JsonKey(name: 'dt')
   final int timeStamp;
 
-  @JsonKey(name: 'cod')
-  final int code;
-
   @JsonKey(name: 'name')
   final String name;
-
-  @JsonKey(name: 'coord')
-  final CoordinatesApi coordinates;
 
   @JsonKey(name: 'weather')
   final List<WeatherApi> weather;
@@ -26,14 +19,11 @@ class CurrentWeatherApi {
   @JsonKey(name: 'main')
   final MainApi main;
 
-  const CurrentWeatherApi({
-    required this.timeStamp,
-    required this.code,
-    required this.coordinates,
-    required this.weather,
-    required this.main,
-    required this.name
-  });
+  const CurrentWeatherApi(
+      {required this.timeStamp,
+      required this.weather,
+      required this.main,
+      required this.name});
 
   factory CurrentWeatherApi.fromJson(Map<String, dynamic> json) =>
       _$CurrentWeatherApiFromJson(json);
@@ -41,11 +31,12 @@ class CurrentWeatherApi {
   Map<String, dynamic> toJson() => _$CurrentWeatherApiToJson(this);
 
   CurrentWeather toCurrentWeather() => CurrentWeather(
-    timeStamp: timeStamp,
-    code: code,
-    name: name,
-    coordinates: coordinates.toCoordinates(),
-    weather: weather.map((item) => item.toWeather()).toList(),
-    main: main.toMain(),
-  );
+        timeStamp: timeStamp,
+        name: name,
+        weather: weather.first.toWeather(),
+        tempMax: main.tempMax,
+        feelsLike: main.feelsLike,
+        temp: main.temp,
+        tempMin: main.tempMin,
+      );
 }

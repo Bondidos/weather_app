@@ -24,11 +24,13 @@ class WeatherByLocationPage extends StatelessWidget {
             builder: (context, state) {
               switch (state.status) {
                 case MainPageStatus.loaded:
-                  if (state.currentWeather == null) return Container();
+                  if (state.weatherCurrentWithForecast == null) {
+                    return Container();
+                  }
                   return Stack(
                     children: [
                       const FloatingButtonSearch(heroTag: id),
-                      buildWeatherPage(state.currentWeather!),
+                      buildWeatherPage(state.weatherCurrentWithForecast!.currentWeather),
                     ],
                   );
 
@@ -60,7 +62,8 @@ class WeatherByLocationPage extends StatelessWidget {
     );
   }
 
-  CustomScrollView buildWeatherPage(CurrentWeather currentWeather) => CustomScrollView(
+  CustomScrollView buildWeatherPage(CurrentWeather currentWeather) =>
+      CustomScrollView(
         slivers: [
           SliverAppBar(
             expandedHeight: 350,
@@ -69,9 +72,10 @@ class WeatherByLocationPage extends StatelessWidget {
               centerTitle: true,
               title: buildTitle(currentWeather.name),
               background: CurrentWeatherWidget(
-                maxMinTemp: "${currentWeather.main.tempMax}/${currentWeather.main.tempMin}",
-                description: currentWeather.weather.first.description,
-                currentTemp: currentWeather.main.temp.toString(),
+                maxMinTemp:
+                    "${currentWeather.tempMax}/${currentWeather.tempMin}",
+                description: currentWeather.weather.description,
+                currentTemp: currentWeather.temp.toString(),
               ),
             ),
           )

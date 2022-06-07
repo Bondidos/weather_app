@@ -14,8 +14,7 @@ import 'layers/data/sources/l18n_settings.dart';
 import 'layers/data/sources/location_data_source.dart';
 import 'layers/data/sources/remote_data_source.dart';
 import 'layers/domain/repository/weather_repository.dart';
-import 'layers/domain/use_case/fetch_current_weather_use_case.dart';
-import 'layers/domain/use_case/fetch_hourly_weather_forecast_use_case.dart';
+import 'layers/domain/use_case/fetch_weather_from_api_or_cache_use_case.dart';
 import 'layers/presentation/main_page/bloc/main_page_cubit.dart';
 
 final inj = GetIt.instance;
@@ -26,19 +25,13 @@ Future<void> init() async {
   await Geolocator.requestPermission();
 
   inj.registerFactory<MainPageCubit>(() => MainPageCubit(
-        fetchCurrentWeatherUseCase: inj(),
-    fetchHourlyWeatherForecastUseCase: inj(),
+        fetchWeatherFromApiOrCacheUseCase: inj(),
       ));
 
-  inj.registerFactory<FetchCurrentWeatherUseCase>(
-      () => FetchCurrentWeatherUseCase(
+  inj.registerFactory<FetchWeatherFromApiOrCacheUseCase>(
+      () => FetchWeatherFromApiOrCacheUseCase(
             weatherRepository: inj(),
           ));
-
-  inj.registerFactory<FetchHourlyWeatherForecastUseCase>(
-          () => FetchHourlyWeatherForecastUseCase(
-        weatherRepository: inj(),
-      ));
 
   inj.registerLazySingleton<WeatherRepository>(() => WeatherRepositoryImpl(
         remoteDataSource: inj(),

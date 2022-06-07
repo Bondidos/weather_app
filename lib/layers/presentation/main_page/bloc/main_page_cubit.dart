@@ -1,60 +1,46 @@
-import 'package:weather_app/layers/domain/models/current_weather/current_weather.dart';
-import 'package:weather_app/layers/domain/models/hourly_weather_forecast/hourly_forecast.dart';
-import 'package:weather_app/layers/domain/use_case/fetch_current_weather_use_case.dart';
-import 'package:weather_app/layers/domain/use_case/fetch_hourly_weather_forecast_use_case.dart';
+import 'package:weather_app/layers/domain/use_case/fetch_weather_from_api_or_cache_use_case.dart';
 import 'package:weather_app/layers/presentation/main_page/bloc/main_page_state.dart';
 import 'package:bloc/bloc.dart';
+import 'package:weather_app/layers/domain/models/weather_current_with_forecast/weather_cuurent_with_forecast.dart';
 
 class MainPageCubit extends Cubit<MainPageState> {
-  final FetchCurrentWeatherUseCase fetchCurrentWeatherUseCase;
-  final FetchHourlyWeatherForecastUseCase fetchHourlyWeatherForecastUseCase;
+  final FetchWeatherFromApiOrCacheUseCase fetchWeatherFromApiOrCacheUseCase;
 
   MainPageCubit({
-    required this.fetchCurrentWeatherUseCase,
-    required this.fetchHourlyWeatherForecastUseCase,
+    required this.fetchWeatherFromApiOrCacheUseCase,
   }) : super(
           const MainPageState(
-            currentWeather: null,
-            hourlyForecast: [],
+            weatherCurrentWithForecast: null,
             status: MainPageStatus.initial,
           ),
         );
 
   Future<void> init() async {
     emit(_loadingState());
-    final CurrentWeather currentWeather;
-    final List<HourlyForecast> hourlyForecast;
+    final WeatherCurrentWithForecast weatherCurrentWithForecast;
     try {
-        currentWeather = await fetchCurrentWeather();
-        hourlyForecast = await fetchHourlyForecast();
+      weatherCurrentWithForecast =
+          await fetchWeatherFromApiOrCacheUseCase.execute();
     } catch (e) {
       emit(_errorState(e.toString()));
       return;
     }
-    emit(_loadedState(currentWeather, hourlyForecast));
+    emit(_loadedState(weatherCurrentWithForecast));
   }
-
-  Future<CurrentWeather> fetchCurrentWeather() async =>
-      fetchCurrentWeatherUseCase.execute();
-
-  Future<List<HourlyForecast>> fetchHourlyForecast() async =>
-      fetchHourlyWeatherForecastUseCase.execute();
 
   MainPageState _loadingState() =>
       state.copyWith(status: MainPageStatus.loading);
 
   MainPageState _errorState(String message) => MainPageError(
-        currentWeather: null,
+        weatherCurrentWithForecast: null,
         status: MainPageStatus.error,
-        hourlyForecast: state.hourlyForecast,
         message: message,
       );
 
   MainPageState _loadedState(
-          CurrentWeather currentWeather, List<HourlyForecast> hourlyForecast) =>
+          WeatherCurrentWithForecast weatherCurrentWithForecast) =>
       state.copyWith(
-        currentWeather: currentWeather,
+        weatherCurrentWithForecast: weatherCurrentWithForecast,
         status: MainPageStatus.loaded,
-        hourlyForecast: hourlyForecast,
       );
 }

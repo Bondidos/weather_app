@@ -1,46 +1,40 @@
 import 'package:equatable/equatable.dart';
-import 'package:weather_app/layers/domain/models/current_weather/current_weather.dart';
-import 'package:weather_app/layers/domain/models/hourly_weather_forecast/hourly_forecast.dart';
+import 'package:weather_app/layers/domain/models/weather_current_with_forecast/weather_cuurent_with_forecast.dart';
 
 enum MainPageStatus { initial, loading, loaded, error }
 
 class MainPageState extends Equatable {
-  final CurrentWeather? currentWeather;
-  final List<HourlyForecast> hourlyForecast;
+  final WeatherCurrentWithForecast? weatherCurrentWithForecast;
   final MainPageStatus status;
 
   const MainPageState({
-    required this.currentWeather,
+    required this.weatherCurrentWithForecast,
     required this.status,
-    required this.hourlyForecast,
   });
 
   MainPageState copyWith({
-    CurrentWeather? currentWeather,
+    WeatherCurrentWithForecast? weatherCurrentWithForecast,
     MainPageStatus? status,
-    List<HourlyForecast>? hourlyForecast,
   }) =>
       MainPageState(
-        currentWeather: currentWeather ?? this.currentWeather,
+        weatherCurrentWithForecast:
+            weatherCurrentWithForecast ?? this.weatherCurrentWithForecast,
         status: status ?? this.status,
-        hourlyForecast: hourlyForecast ?? this.hourlyForecast,
       );
 
   @override
-  List<Object?> get props => [currentWeather, hourlyForecast, status];
+  List<Object?> get props => [weatherCurrentWithForecast, status];
 }
 
 class MainPageError extends MainPageState {
   final String message;
 
   const MainPageError({
-    required CurrentWeather? currentWeather,
+    required WeatherCurrentWithForecast? weatherCurrentWithForecast,
     required MainPageStatus status,
-    required final List<HourlyForecast> hourlyForecast,
     required this.message,
   }) : super(
-          currentWeather: currentWeather,
-          hourlyForecast: hourlyForecast,
+          weatherCurrentWithForecast: weatherCurrentWithForecast,
           status: status,
         );
 }

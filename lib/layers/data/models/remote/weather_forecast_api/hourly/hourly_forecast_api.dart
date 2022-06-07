@@ -1,6 +1,6 @@
 import 'package:json_annotation/json_annotation.dart';
 import 'package:weather_app/layers/data/models/remote/weather/weather_api.dart';
-import 'package:weather_app/layers/domain/models/hourly_weather_forecast/hourly_forecast.dart';
+import 'package:weather_app/layers/domain/models/weather_forecast/hourly_forecast.dart';
 
 part 'hourly_forecast_api.g.dart';
 
@@ -9,11 +9,15 @@ class HourlyForecastApi {
   @JsonKey(name: 'dt')
   final int timeStamp;
 
+  @JsonKey(name: 'temp')
+  final double temp;
+
   @JsonKey(name: 'weather')
   final List<WeatherApi> weather;
 
   const HourlyForecastApi({
     required this.timeStamp,
+    required this.temp,
     required this.weather,
   });
 
@@ -24,6 +28,7 @@ class HourlyForecastApi {
 
   HourlyForecast toHourlyForecast() => HourlyForecast(
         timeStamp: timeStamp,
-        weather: weather.map((item) => item.toWeather()).toList(),
+        temp: temp,
+        weather: weather.first.toWeather(),
       );
 }

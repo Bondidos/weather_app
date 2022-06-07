@@ -1,6 +1,6 @@
 import 'package:json_annotation/json_annotation.dart';
-import 'package:weather_app/layers/data/models/remote/weather_forecast_api/hourly_forecast_api.dart';
-import 'package:weather_app/layers/data/models/remote/weather_forecast_api/daily_forecast_api.dart';
+import 'package:weather_app/layers/data/models/remote/weather_forecast_api/daily/daily_forecast_api.dart';
+import 'package:weather_app/layers/data/models/remote/weather_forecast_api/hourly/hourly_forecast_api.dart';
 
 part 'weather_forecast_api.g.dart';
 
