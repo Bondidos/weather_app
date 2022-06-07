@@ -15,7 +15,7 @@ class MainPageCubit extends Cubit<MainPageState> {
           ),
         );
 
-  Future<void> init() async {
+  Future<void> fetchWeather() async {
     emit(_loadingState());
     final WeatherCurrentWithForecast weatherCurrentWithForecast;
     try {

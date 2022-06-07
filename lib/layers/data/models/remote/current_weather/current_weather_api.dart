@@ -19,11 +19,12 @@ class CurrentWeatherApi {
   @JsonKey(name: 'main')
   final MainApi main;
 
-  const CurrentWeatherApi(
-      {required this.timeStamp,
-      required this.weather,
-      required this.main,
-      required this.name});
+  const CurrentWeatherApi({
+    required this.timeStamp,
+    required this.weather,
+    required this.main,
+    required this.name,
+  });
 
   factory CurrentWeatherApi.fromJson(Map<String, dynamic> json) =>
       _$CurrentWeatherApiFromJson(json);
