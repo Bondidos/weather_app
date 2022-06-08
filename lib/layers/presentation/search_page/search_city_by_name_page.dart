@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:weather_app/injection_container.dart' as di;
+import 'package:weather_app/layers/presentation/search_page/bloc/search_user_state.dart';
+import 'bloc/search_city_cubit.dart';
 
 const searchCityPageRatio = 3 / 4;
 
@@ -23,7 +27,16 @@ class SearchCityByName extends StatelessWidget {
             color: Theme.of(context).colorScheme.primary,
             child: Padding(
               padding: const EdgeInsets.all(8.0),
-              child: buildSearchFieldAndList(),
+              child: BlocProvider<SearchCityCubit>(
+                create: (_) => di.inj<SearchCityCubit>()..init(),
+                child: BlocConsumer<SearchCityCubit, SearchCityState>(
+                  listener: (context, state) {},
+                  builder: (context, state) {
+                    SearchCityCubit cubit = context.read<SearchCityCubit>();
+                    return buildSearchFieldAndList(state,cubit);
+                  },
+                ),
+              ),
             ),
           ),
         ),
@@ -31,20 +44,20 @@ class SearchCityByName extends StatelessWidget {
     );
   }
 
-  Column buildSearchFieldAndList() {
+  Column buildSearchFieldAndList(SearchCityState state, SearchCityCubit cubit) {
     return Column(
       mainAxisSize: MainAxisSize.max,
       children: [
-        Flexible(child: buildSearchField()),
-        // Expanded(child: buildSearchList())
+        Flexible(child: buildSearchField(cubit)),
+        Expanded(child: buildSearchList(state))
       ],
     );
   }
 
-  TextField buildSearchField() {
-    return const TextField(
+  TextField buildSearchField(SearchCityCubit cubit) {
+    return TextField(
       cursorColor: Colors.black,
-      decoration: InputDecoration(
+      decoration: const InputDecoration(
         fillColor: Colors.white24,
         border: OutlineInputBorder(
           borderSide: BorderSide(
@@ -59,14 +72,23 @@ class SearchCityByName extends StatelessWidget {
         hintStyle: TextStyle(color: Colors.white30),
         hintText: 'Search city',
       ),
-      onChanged: null,
+      onChanged: (search) => cubit.onTextChange(search),
     );
   }
 
-  ListView buildSearchList() {
+  ListView buildSearchList(SearchCityState state) {
     return ListView.builder(
-        itemCount: 0,
-        itemBuilder: (context, index) => Container()
-    );
+        itemCount: state.foundList.length,
+        itemBuilder: (context, index) {
+          SearchCityCubit cubit = context.read<SearchCityCubit>();
+          return ListTile(
+            onTap: () async {
+              await cubit.cityPicked(index);
+              //todo navigate to city detailPage
+            },
+            title: Text(state.foundList[index].name),
+            subtitle: Text(state.foundList[index].country),
+          );
+        });
   }
 }

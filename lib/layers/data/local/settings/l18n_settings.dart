@@ -1,6 +1,6 @@
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:weather_app/common/constants.dart';
-import 'package:weather_app/layers/data/sources/l18n_settings.dart';
+import 'package:weather_app/layers/data/sources/local/settings/l18n_settings.dart';
 
 const currentLanguageKey = "current language";
 

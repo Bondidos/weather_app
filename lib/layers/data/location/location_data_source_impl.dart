@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'package:geolocator/geolocator.dart';
 import 'package:latlng/latlng.dart';
-import 'package:weather_app/layers/data/sources/location_data_source.dart';
+import 'package:weather_app/layers/data/sources/location/location_data_source.dart';
 
 class LocationDataSourceImpl extends LocationDataSource {
   LocationDataSourceImpl();

@@ -18,6 +18,9 @@ dependencies:
   bloc: 8.0.2
   equatable: 2.0.3
 
+  #rxdart:
+  rxdart: 0.27.1
+
   # Service Locator
   get_it: 7.2.0
 

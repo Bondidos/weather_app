@@ -1,7 +1,7 @@
 import 'package:latlng/latlng.dart';
 import 'package:weather_app/common/constants.dart';
-import 'package:weather_app/layers/data/sources/l18n_settings.dart';
-import 'package:weather_app/layers/data/sources/location_data_source.dart';
+import 'package:weather_app/layers/data/sources/local/settings/l18n_settings.dart';
+import 'package:weather_app/layers/data/sources/location/location_data_source.dart';
 import 'package:weather_app/layers/data/remote/api_query_generator/api_keys.dart'
     as key;
 import 'package:weather_app/layers/data/remote/api_query_generator/api_query_parameters.dart'
@@ -48,6 +48,13 @@ class ApiQueryGenerator {
       ].unpack(),
     };
   }
+
+  Map<String, dynamic> generateSearchCityByNameQuery(
+          {required String search}) =>
+      {
+        key.cityName: search,
+        key.applicationId: param.applicationKey,
+      };
 }
 
 extension UnpackList on List<String> {
