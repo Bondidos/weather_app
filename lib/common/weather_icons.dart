@@ -1,11 +1,6 @@
 import 'package:weather_app/common/constants.dart';
 
 class WeatherIcons {
-  static final WeatherIcons _weatherIcons = WeatherIcons._createSingleton();
-
-  factory WeatherIcons() => _weatherIcons;
-
-  WeatherIcons._createSingleton();
 
   static const _icons = {
     '01d': 'assets/weather_icons/01d@2x.png',
@@ -28,5 +23,5 @@ class WeatherIcons {
     '50n': 'assets/weather_icons/50n@2x.png',
   };
 
-  String getIconLink(String id) => _icons[id] ?? notPicked;
+  static String getIconLink(String id) => _icons[id] ?? notPicked;
 }

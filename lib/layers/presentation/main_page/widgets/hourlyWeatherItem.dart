@@ -3,8 +3,6 @@ import 'package:intl/intl.dart';
 import 'package:weather_app/common/weather_icons.dart';
 import 'package:weather_app/layers/domain/models/weather_forecast/hourly_forecast.dart';
 
-final WeatherIcons iconAssets = WeatherIcons();
-
 class HourlyWeatherItem extends StatelessWidget {
   final HourlyForecast hourlyForecast;
 
@@ -49,7 +47,7 @@ class HourlyWeatherItem extends StatelessWidget {
     return Flexible(
       flex: 2,
       child: Image.asset(
-        iconAssets.getIconLink(iconId),
+        WeatherIcons.getIconLink(iconId),
       ),
     );
   }

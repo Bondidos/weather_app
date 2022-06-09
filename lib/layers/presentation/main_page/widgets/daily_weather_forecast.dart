@@ -4,8 +4,6 @@ import 'package:weather_app/common/weather_icons.dart';
 import 'package:weather_app/layers/domain/models/weather/weather.dart';
 import 'package:weather_app/layers/domain/models/weather_forecast/daily_forecast.dart';
 
-final WeatherIcons iconAssets = WeatherIcons();
-
 class DailyWeatherForecast extends StatelessWidget {
   final DailyForecast dailyForecast;
 
@@ -49,7 +47,7 @@ class DailyWeatherForecast extends StatelessWidget {
   }
 
   Flexible buildWeatherIcon(String iconId) {
-    return Flexible(child: Image.asset(iconAssets.getIconLink(iconId),));
+    return Flexible(child: Image.asset(WeatherIcons.getIconLink(iconId),));
   }
 
   Text buildDescription(Weather weather) => Text(weather.description);
