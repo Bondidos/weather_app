@@ -2,9 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:weather_app/layers/presentation/city_page/city_weather_page.dart';
 import 'package:weather_app/layers/presentation/main_page/weather_by_location_page.dart';
 import 'package:weather_app/injection_container.dart' as di;
+import 'package:geolocator/geolocator.dart';
 
 void main() async {
   await di.init();
+  await Geolocator.requestPermission();
   runApp(const MyApp());
 }
 

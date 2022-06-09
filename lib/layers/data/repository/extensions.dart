@@ -4,14 +4,20 @@ import 'package:weather_app/layers/data/models/remote/weather_forecast_api/hourl
 import 'package:weather_app/layers/domain/models/weather_forecast/daily_forecast.dart';
 import 'package:weather_app/layers/domain/models/weather_forecast/hourly_forecast.dart';
 
+const skipFirst = 1;
+
 extension MapDailyForecastApiList on List<DailyForecastApi> {
   List<DailyForecast> toDailyForecastList() =>
-      map((item) => item.toDailyForecast()).toList();
+      map((item) => item.toDailyForecast()).skip(skipFirst).toList();
 }
 
 extension MapHourlyForecastApiList on List<HourlyForecastApi> {
   List<HourlyForecast> toHourlyForecastList() =>
       map((item) => item.toHourlyForecast()).toList();
+}
+
+extension HourlyForecastExt on List<HourlyForecast> {
+  List<HourlyForecast> pickFirstSixHours() => getRange(0, 6).toList();
 }
 
 extension PickSixHoursForecast on WeatherForecastApi {

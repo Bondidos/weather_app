@@ -30,6 +30,7 @@ dependencies:
   logger: 1.1.0
   json_annotation: 4.4.0
   json_serializable: 6.1.6
+  simple_connection_checker: 0.2.1
 
   # Local
   shared_preferences: 2.0.13
