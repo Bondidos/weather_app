@@ -2,6 +2,7 @@ import 'package:weather_app/layers/data/models/remote/current_weather/current_we
 import 'package:weather_app/layers/data/models/remote/weather_forecast_api/hourly/weather_forecast_api.dart';
 import 'package:weather_app/layers/data/repository/extensions.dart';
 import 'package:weather_app/layers/data/sources/remote/remote_data_source.dart';
+import 'package:weather_app/layers/domain/models/current_weather/current_weather.dart';
 import 'package:weather_app/layers/domain/models/weather_current_with_forecast/weather_cuurent_with_forecast.dart';
 import 'package:weather_app/layers/domain/repository/weather_repository.dart';
 
@@ -29,4 +30,10 @@ class WeatherRepositoryImpl extends WeatherRepository {
         dailyForecast: forecast.daily.toDailyForecastList(),
         hourlyForecast: forecast.hourly.toHourlyForecastList(),
       );
+
+  @override
+  Future<CurrentWeather> fetchCurrentWeatherForCity() async {
+    CurrentWeatherApi currentWeatherApi = await remoteDataSource.fetchCurrentWeatherForCity();
+    return currentWeatherApi.toCurrentWeather();
+  }
 }

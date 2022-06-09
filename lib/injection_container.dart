@@ -7,6 +7,7 @@ import 'package:weather_app/layers/data/local/search_city_local_data_source_impl
 import 'package:weather_app/layers/data/local/settings/search_city_settings_impl.dart';
 import 'package:weather_app/layers/data/remote/api_client/api_client.dart';
 import 'package:weather_app/layers/data/repository/weather_repository_impl.dart';
+import 'package:weather_app/layers/domain/use_case/fetch_weather_for_city_use_case.dart';
 import 'layers/data/local/settings/l18n_settings.dart';
 import 'layers/data/location/location_data_source_impl.dart';
 import 'layers/data/remote/api_query_generator/api_query_generator.dart';
@@ -22,6 +23,7 @@ import 'layers/domain/repository/weather_repository.dart';
 import 'layers/domain/use_case/fetch_weather_from_api_or_cache_use_case.dart';
 import 'layers/domain/use_case/save_picked_city_coordinates_use_case.dart';
 import 'layers/domain/use_case/search_city_by_name_use_case.dart';
+import 'layers/presentation/city_page/bloc/city_weather_cubit.dart';
 import 'layers/presentation/main_page/bloc/main_page_cubit.dart';
 import 'layers/presentation/search_page/bloc/search_city_cubit.dart';
 
@@ -32,6 +34,10 @@ Future<void> init() async {
   //todo think about permissions (is this good place?)
   await Geolocator.requestPermission();
 
+  inj.registerFactory<CityWeatherCubit>(() => CityWeatherCubit(
+        fetchWeatherForCityUseCase: inj(),
+      ));
+
   inj.registerFactory<SearchCityCubit>(() => SearchCityCubit(
         searchCityByName: inj(),
         savePickedCityCoordinates: inj(),
@@ -39,6 +45,11 @@ Future<void> init() async {
 
   inj.registerFactory<MainPageCubit>(() => MainPageCubit(
         fetchWeatherFromApiOrCacheUseCase: inj(),
+      ));
+
+  inj.registerFactory<FetchWeatherForCityUseCase>(
+          () => FetchWeatherForCityUseCase(
+        weatherRepository: inj(),
       ));
 
   inj.registerFactory<FetchWeatherFromApiOrCacheUseCase>(
@@ -79,6 +90,7 @@ Future<void> init() async {
   inj.registerFactory<ApiQueryGenerator>(() => ApiQueryGenerator(
         locationDataSource: inj(),
         localisationSettings: inj(),
+        searchCitySettings: inj(),
       ));
 
   inj.registerFactory<LocationDataSource>(() => LocationDataSourceImpl());

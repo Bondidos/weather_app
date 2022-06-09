@@ -29,7 +29,10 @@ class RemoteDataSourceImpl extends RemoteDataSource {
   @override
   Future<List<CityApi>> searchCityByName(String search) async =>
       apiClient.searchCityByName(
-        apiQueryGenerator.generateSearchCityByNameQuery(search: search)
-      );
+          apiQueryGenerator.generateSearchCityByNameQuery(search: search));
 
+  @override
+  Future<CurrentWeatherApi> fetchCurrentWeatherForCity() async =>
+      apiClient.fetchCurrentWeatherInLocation(
+          apiQueryGenerator.generateCurrentWeatherForCityQuery());
 }

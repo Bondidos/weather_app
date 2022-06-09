@@ -6,4 +6,5 @@ abstract class RemoteDataSource{
   Future<CurrentWeatherApi> fetchCurrentWeather();
   Future<WeatherForecastApi> fetchWeatherForecast();
   Future<List<CityApi>> searchCityByName(String search);
+  Future<CurrentWeatherApi> fetchCurrentWeatherForCity();
 }

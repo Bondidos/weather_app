@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:weather_app/injection_container.dart' as di;
+import 'package:weather_app/layers/presentation/city_page/city_weather_page.dart';
 import 'package:weather_app/layers/presentation/search_page/bloc/search_user_state.dart';
 import 'bloc/search_city_cubit.dart';
 
@@ -30,7 +31,7 @@ class SearchCityByName extends StatelessWidget {
               child: BlocProvider<SearchCityCubit>(
                 create: (_) => di.inj<SearchCityCubit>()..init(),
                 child: BlocConsumer<SearchCityCubit, SearchCityState>(
-                  listener: (context, state) {},
+                  listener: (context, state) {},//todo snackBar
                   builder: (context, state) {
                     SearchCityCubit cubit = context.read<SearchCityCubit>();
                     return buildSearchFieldAndList(state,cubit);
@@ -84,7 +85,7 @@ class SearchCityByName extends StatelessWidget {
           return ListTile(
             onTap: () async {
               await cubit.cityPicked(index);
-              //todo navigate to city detailPage
+              Navigator.of(context).pushNamed(CityWeatherPage.id);
             },
             title: Text(state.foundList[index].name),
             subtitle: Text(state.foundList[index].country),
