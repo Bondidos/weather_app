@@ -1,6 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:simple_connection_checker/simple_connection_checker.dart';
 import 'package:weather_app/layers/domain/models/current_weather/current_weather.dart';
 import 'package:weather_app/layers/presentation/common/widgets/current_weather_common_widgets.dart';
+import 'package:weather_app/layers/presentation/main_page/widgets/date_widget.dart';
+import 'package:weather_app/layers/presentation/main_page/widgets/description_widget.dart';
+import 'package:weather_app/layers/presentation/main_page/widgets/max_and_min_temperature.dart';
+import 'package:weather_app/layers/presentation/main_page/widgets/time_since_last_update.dart';
+
+const apiAddress = "openweathermap.org";
 
 class WeatherSliverAppBar extends StatelessWidget {
   final CurrentWeather currentWeather;
@@ -44,20 +51,36 @@ class WeatherSliverAppBar extends StatelessWidget {
       child: Padding(
         padding: const EdgeInsets.all(10.0),
         child: Row(
-          crossAxisAlignment: CrossAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.end,
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             Text(
-              "openweathermap.org",
+              apiAddress,
               style: Theme.of(context).textTheme.bodyLarge,
             ),
             const Spacer(),
-            CurrentDate(timeStamp: currentWeather.timeStamp),
+            buildDateWidget(currentWeather.timeStamp),
           ],
         ),
       ),
     );
   }
+
+  FutureBuilder buildDateWidget(int timeStamp) {
+    return FutureBuilder<bool>(
+      future: isConnected(),
+      builder: (_, snapshot) {
+        if (snapshot.hasData) {
+          return (snapshot.data!)
+              ? DateWidget(timeStamp: timeStamp)
+              : TimeSinceLastUpdate(timeStamp: timeStamp);
+        }
+        return Container();
+      },
+    );
+  }
+
+  Future<bool> isConnected() => SimpleConnectionChecker.isConnectedToInternet();
 
   Column buildCurrentWeather(
       CurrentWeather currentWeather, BuildContext context) {
@@ -75,6 +98,4 @@ class WeatherSliverAppBar extends StatelessWidget {
       ],
     );
   }
-
 }
-

@@ -49,6 +49,106 @@ class S {
   static S? maybeOf(BuildContext context) {
     return Localizations.of<S>(context, S);
   }
+
+  /// `No Permission Granted`
+  String get NoPermissionGranted {
+    return Intl.message(
+      'No Permission Granted',
+      name: 'NoPermissionGranted',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Can not get Location. Time expired`
+  String get ExceptionTimeExpired {
+    return Intl.message(
+      'Can not get Location. Time expired',
+      name: 'ExceptionTimeExpired',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Please, check is Location Service enabled`
+  String get ExceptionCheckLocationService {
+    return Intl.message(
+      'Please, check is Location Service enabled',
+      name: 'ExceptionCheckLocationService',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Current weather`
+  String get CurrentWeather {
+    return Intl.message(
+      'Current weather',
+      name: 'CurrentWeather',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Search city`
+  String get SearchCity {
+    return Intl.message(
+      'Search city',
+      name: 'SearchCity',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Check internet connection`
+  String get CheckConnection {
+    return Intl.message(
+      'Check internet connection',
+      name: 'CheckConnection',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `d`
+  String get Days {
+    return Intl.message(
+      'd',
+      name: 'Days',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `min ago`
+  String get Minutes {
+    return Intl.message(
+      'min ago',
+      name: 'Minutes',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `h`
+  String get Hours {
+    return Intl.message(
+      'h',
+      name: 'Hours',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Last update:`
+  String get LastUpdate {
+    return Intl.message(
+      'Last update:',
+      name: 'LastUpdate',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {
@@ -56,7 +156,8 @@ class AppLocalizationDelegate extends LocalizationsDelegate<S> {
 
   List<Locale> get supportedLocales {
     return const <Locale>[
-      Locale.fromSubtags(languageCode: 'en', countryCode: 'US'),
+      Locale.fromSubtags(languageCode: 'en'),
+      Locale.fromSubtags(languageCode: 'ru'),
     ];
   }
 

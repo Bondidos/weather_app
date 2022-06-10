@@ -17,7 +17,7 @@ extension MapHourlyForecastApiList on List<HourlyForecastApi> {
 }
 
 extension HourlyForecastExt on List<HourlyForecast> {
-  List<HourlyForecast> pickFirstSixHours() => getRange(0, 6).toList();
+  List<HourlyForecast> pickFirstSixHours() => getRange(1, 7).toList();
 }
 
 extension PickSixHoursForecast on WeatherForecastApi {

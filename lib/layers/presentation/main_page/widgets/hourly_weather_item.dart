@@ -1,5 +1,8 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:weather_app/common/constants.dart';
 import 'package:weather_app/common/weather_icons.dart';
 import 'package:weather_app/layers/domain/models/weather_forecast/hourly_forecast.dart';
 
@@ -36,8 +39,13 @@ class HourlyWeatherItem extends StatelessWidget {
   }
 
   Text buildTime(int timeStamp) {
-    // todo should to show am/pm at us locale
-    var format = DateFormat('hh:mm aa', 'en_US');
+    final String defaultLocale = Platform.localeName;
+    final DateFormat format;
+    if (defaultLocale.contains(languageEnglish)) {
+      format = DateFormat('hh:mm aa');
+    } else {
+      format = DateFormat.Hm();
+    }
     var date = DateTime.fromMillisecondsSinceEpoch(timeStamp * 1000);
     var dateString = format.format(date);
     return Text(dateString);

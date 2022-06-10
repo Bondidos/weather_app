@@ -6,10 +6,10 @@ import 'package:weather_app/layers/domain/models/weather_forecast/hourly_forecas
 import 'package:weather_app/layers/presentation/main_page/bloc/main_page_cubit.dart';
 import 'package:weather_app/layers/presentation/main_page/bloc/main_page_state.dart';
 import 'package:weather_app/layers/presentation/main_page/widgets/daily_weather_forecast.dart';
-import 'package:weather_app/layers/presentation/main_page/widgets/floatingButtonSearch.dart';
+import 'package:weather_app/layers/presentation/main_page/widgets/floating_button_search.dart';
 import 'package:weather_app/injection_container.dart' as di;
-import 'package:weather_app/layers/presentation/main_page/widgets/hourlyWeatherItem.dart';
-import 'package:weather_app/layers/presentation/main_page/widgets/weatherSliverAppBarWidget.dart';
+import 'package:weather_app/layers/presentation/main_page/widgets/hourly_weather_item.dart';
+import 'package:weather_app/layers/presentation/main_page/widgets/weather_sliver_app_bar_widget.dart';
 
 class WeatherByLocationPage extends StatelessWidget {
   const WeatherByLocationPage({Key? key}) : super(key: key);

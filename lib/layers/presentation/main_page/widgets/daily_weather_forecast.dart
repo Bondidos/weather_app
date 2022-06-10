@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 import 'package:weather_app/common/weather_icons.dart';
 import 'package:weather_app/layers/domain/models/weather/weather.dart';
 import 'package:weather_app/layers/domain/models/weather_forecast/daily_forecast.dart';
+import 'package:weather_app/layers/presentation/main_page/widgets/date_widget.dart';
 
 class DailyWeatherForecast extends StatelessWidget {
   final DailyForecast dailyForecast;
@@ -25,7 +25,9 @@ class DailyWeatherForecast extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            buildTime(dailyForecast.timeStamp),
+            DateWidget(
+              timeStamp: dailyForecast.timeStamp,
+            ),
             buildWeatherIconWithDescription(dailyForecast.weather),
             buildMaxMinTemperature(
               dailyForecast.maxTemp,
@@ -47,19 +49,14 @@ class DailyWeatherForecast extends StatelessWidget {
   }
 
   Flexible buildWeatherIcon(String iconId) {
-    return Flexible(child: Image.asset(WeatherIcons.getIconLink(iconId),));
+    return Flexible(
+        child: Image.asset(
+      WeatherIcons.getIconLink(iconId),
+    ));
   }
 
   Text buildDescription(Weather weather) => Text(weather.description);
 
   Text buildMaxMinTemperature(double maxTemp, double minTemp) =>
       Text("$maxTemp\u00B0/$minTemp\u00B0");
-
-  Text buildTime(int timeStamp) {
-    // todo should to show am/pm at us locale
-    var format = DateFormat.MMMEd('en_US');
-    var date = DateTime.fromMillisecondsSinceEpoch(timeStamp * 1000);
-    var dateString = format.format(date);
-    return Text(dateString);
-  }
 }

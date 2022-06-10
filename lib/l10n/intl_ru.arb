@@ -1,0 +1,13 @@
+{
+  "@@locale": "ru",
+  "NoPermissionGranted": "Разрешение не получено",
+  "ExceptionTimeExpired": "локация не получена. Время истекло",
+  "ExceptionCheckLocationService": "Проверьте, активен ли сервис геолокации",
+  "CurrentWeather": "Погода сейчас",
+  "SearchCity": "Поиск города",
+  "CheckConnection": "Проверьте интернет соединение",
+  "Days": "д",
+  "Minutes": "мин назад",
+  "Hours": "ч",
+  "LastUpdate": "последнее обновление:"
+}

@@ -1,11 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:weather_app/common/weather_icons.dart';
+import 'package:weather_app/generated/l10n.dart';
 import 'package:weather_app/layers/domain/models/current_weather/current_weather.dart';
 import 'package:weather_app/layers/presentation/city_page/bloc/city_weather_cubit.dart';
 import 'package:weather_app/injection_container.dart' as di;
 import 'package:weather_app/layers/presentation/city_page/bloc/city_weather_state.dart';
 import 'package:weather_app/layers/presentation/common/widgets/current_weather_common_widgets.dart';
+import 'package:weather_app/layers/presentation/main_page/widgets/date_widget.dart';
+import 'package:weather_app/layers/presentation/main_page/widgets/description_widget.dart';
+import 'package:weather_app/layers/presentation/main_page/widgets/max_and_min_temperature.dart';
 
 class CityWeatherPage extends StatelessWidget {
   const CityWeatherPage({Key? key}) : super(key: key);
@@ -15,7 +19,7 @@ class CityWeatherPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Current weather"),
+        title: Text(S.current.CurrentWeather),
       ),
       body: BlocProvider<CityWeatherCubit>(
         create: (_) => di.inj<CityWeatherCubit>()..fetchWeather(),
@@ -62,7 +66,7 @@ class CityWeatherPage extends StatelessWidget {
               tempMin: currentWeather.tempMin,
             ),
             Description(description: currentWeather.weather.description),
-            CurrentDate(timeStamp: currentWeather.timeStamp),
+            DateWidget(timeStamp: currentWeather.timeStamp),
           ],
         ),
       ),

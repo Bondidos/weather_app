@@ -70,5 +70,5 @@ flutter:
     - assets/weather_icons/
 
 flutter_intl:
-  main_locale: en_US
+  main_locale: en
   enabled: true

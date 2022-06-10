@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:geolocator/geolocator.dart';
 import 'package:latlng/latlng.dart';
+import 'package:weather_app/generated/l10n.dart';
 import 'package:weather_app/layers/data/sources/location/location_data_source.dart';
 
 class LocationDataSourceImpl extends LocationDataSource {
@@ -16,7 +17,7 @@ class LocationDataSourceImpl extends LocationDataSource {
     final LocationPermission permission = await Geolocator.checkPermission();
     if (permission == LocationPermission.denied ||
         permission == LocationPermission.deniedForever) {
-      throw Exception('No Permission Granted');
+      throw Exception(S.current.NoPermissionGranted);
     }
   }
 
@@ -27,9 +28,9 @@ class LocationDataSourceImpl extends LocationDataSource {
         desiredAccuracy: LocationAccuracy.low,
       );
     } on TimeoutException {
-      throw Exception('Can not get Location. Time expired');
+      throw Exception(S.current.ExceptionTimeExpired);
     } on LocationServiceDisabledException {
-      throw Exception('Please, check is Location Service enabled');
+      throw Exception(S.current.ExceptionCheckLocationService);
     }
     return LatLng(position.latitude, position.longitude);
   }

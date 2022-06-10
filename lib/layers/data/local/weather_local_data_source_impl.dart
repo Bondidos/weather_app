@@ -19,9 +19,9 @@ class WeatherLocalDataSourceImpl implements WeatherLocalDataSource {
   @override
   Future<WeatherCurrentWithForecast> fetchActualDataFromLocal() async {
     List<DailyForecast> dailyForecastList =
-        await dailyForecastDao.getDailyForecastAccordingWithDate(_currentTime);
+        await dailyForecastDao.getDailyForecastAccordingWithDate(_currentTimeInSeconds);
     List<HourlyForecast> hourlyForecastList =
-        await hourlyForecastDao.getActualSixHoursForecast(_currentTime);
+        await hourlyForecastDao.getActualSixHoursForecast(_currentTimeInSeconds);
     CurrentWeather currentWeather =
         await currentWeatherDao.getSavedCurrentWeather();
     return _createWeatherCurrentWithForecast(
@@ -32,15 +32,19 @@ class WeatherLocalDataSourceImpl implements WeatherLocalDataSource {
   }
 
   @override
-  Future<void> saveCurrentWeather(CurrentWeather currentWeather) =>
+  void saveCurrentWithForecast(WeatherCurrentWithForecast currentWithForecast) {
+    _saveCurrentWeather(currentWithForecast.currentWeather);
+    _saveDailyForeCast(currentWithForecast.dailyForecast);
+    _saveHourlyForecast(currentWithForecast.hourlyForecast);
+  }
+
+  Future<void> _saveCurrentWeather(CurrentWeather currentWeather) =>
       currentWeatherDao.saveCurrentWeather(currentWeather);
 
-  @override
-  Future<void> saveDailyForeCast(List<DailyForecast> list) =>
+  Future<void> _saveDailyForeCast(List<DailyForecast> list) =>
       dailyForecastDao.saveDailyForeCast(list);
 
-  @override
-  Future<void> saveHourlyForecast(List<HourlyForecast> list) =>
+  Future<void> _saveHourlyForecast(List<HourlyForecast> list) =>
       hourlyForecastDao.saveHourlyForecast(list);
 
   WeatherCurrentWithForecast _createWeatherCurrentWithForecast(
@@ -54,5 +58,5 @@ class WeatherLocalDataSourceImpl implements WeatherLocalDataSource {
         hourlyForecast: hourlyForecastList,
       );
 
-  int get _currentTime => DateTime.now().millisecondsSinceEpoch ~/ 1000;//todo write method
+  int get _currentTimeInSeconds => DateTime.now().millisecondsSinceEpoch ~/ 1000;
 }

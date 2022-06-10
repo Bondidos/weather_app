@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:weather_app/generated/l10n.dart';
 import 'package:weather_app/injection_container.dart' as di;
+import 'package:weather_app/layers/domain/models/search_city/city.dart';
 import 'package:weather_app/layers/presentation/city_page/city_weather_page.dart';
 import 'package:weather_app/layers/presentation/search_page/bloc/search_user_state.dart';
 import 'bloc/search_city_cubit.dart';
@@ -50,7 +52,7 @@ class SearchCityByName extends StatelessWidget {
       mainAxisSize: MainAxisSize.max,
       children: [
         Flexible(child: buildSearchField(cubit)),
-        Expanded(child: buildSearchList(state))
+        Expanded(child: buildSearchList(state.foundList))
       ],
     );
   }
@@ -58,9 +60,9 @@ class SearchCityByName extends StatelessWidget {
   TextField buildSearchField(SearchCityCubit cubit) {
     return TextField(
       cursorColor: Colors.black,
-      decoration: const InputDecoration(
+      decoration: InputDecoration(
         fillColor: Colors.white24,
-        border: OutlineInputBorder(
+        border: const OutlineInputBorder(
           borderSide: BorderSide(
             width: 2,
             style: BorderStyle.none,
@@ -70,16 +72,16 @@ class SearchCityByName extends StatelessWidget {
           ),
         ),
         filled: true,
-        hintStyle: TextStyle(color: Colors.white30),
-        hintText: 'Search city',
+        hintStyle: const TextStyle(color: Colors.white30),
+        hintText: S.current.SearchCity,
       ),
       onChanged: (search) => cubit.onTextChange(search),
     );
   }
 
-  ListView buildSearchList(SearchCityState state) {
+  ListView buildSearchList(List<City> foundList) {
     return ListView.builder(
-        itemCount: state.foundList.length,
+        itemCount: foundList.length,
         itemBuilder: (context, index) {
           SearchCityCubit cubit = context.read<SearchCityCubit>();
           return ListTile(
@@ -87,8 +89,8 @@ class SearchCityByName extends StatelessWidget {
               await cubit.cityPicked(index);
               Navigator.of(context).pushNamed(CityWeatherPage.id);
             },
-            title: Text(state.foundList[index].name),
-            subtitle: Text(state.foundList[index].country),
+            title: Text(foundList[index].name),
+            subtitle: Text(foundList[index].country),
           );
         });
   }

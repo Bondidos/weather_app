@@ -1,6 +1,6 @@
 import 'package:drift/drift.dart';
+import 'package:weather_app/layers/data/local/drift_database/dao/extensions/hourlu_forecast_ext.dart';
 import 'package:weather_app/layers/data/local/drift_database/database.dart';
-import 'package:weather_app/layers/domain/models/weather/weather.dart';
 import 'package:weather_app/layers/domain/models/weather_forecast/hourly_forecast.dart';
 
 part 'hourly_forecast_dao.g.dart';
@@ -30,28 +30,4 @@ class HourlyForecastDao extends DatabaseAccessor<Database>
       ..where((tbl) => tbl.timeStamp.isBetweenValues(lower, higher));
     return query.map((tableData) => tableData.toHourlyForecast()).get();
   }
-}
-
-extension HourlyForecastMapper on HourlyForecast {
-  HourlyForecastTableData toTableData() => HourlyForecastTableData(
-        timeStamp: timeStamp,
-        temp: temp,
-        weatherId: weather.id,
-        weatherMain: weather.main,
-        weatherDescription: weather.description,
-        weatherIcon: weather.icon,
-      );
-}
-
-extension HourlyForecastTableDataMapper on HourlyForecastTableData {
-  HourlyForecast toHourlyForecast() => HourlyForecast(
-        timeStamp: timeStamp,
-        temp: temp,
-        weather: Weather(
-          id: weatherId,
-          main: weatherMain,
-          description: weatherDescription,
-          icon: weatherIcon,
-        ),
-      );
 }
