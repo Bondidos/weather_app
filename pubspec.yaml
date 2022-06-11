@@ -68,6 +68,7 @@ flutter:
 
   assets:
     - assets/weather_icons/
+    - assets/background/
 
 flutter_intl:
   main_locale: en

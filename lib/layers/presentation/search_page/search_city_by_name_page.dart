@@ -27,7 +27,7 @@ class SearchCityByName extends StatelessWidget {
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(12),
             ),
-            color: Theme.of(context).colorScheme.primary,
+            color: Theme.of(context).primaryColor,
             child: Padding(
               padding: const EdgeInsets.all(8.0),
               child: BlocProvider<SearchCityCubit>(

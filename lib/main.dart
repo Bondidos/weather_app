@@ -3,13 +3,11 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:weather_app/layers/presentation/city_page/city_weather_page.dart';
 import 'package:weather_app/layers/presentation/main_page/weather_by_location_page.dart';
 import 'package:weather_app/injection_container.dart' as di;
-import 'package:geolocator/geolocator.dart';
 
 import 'generated/l10n.dart';
 
 void main() async {
   await di.init();
-  await Geolocator.requestPermission();
   runApp(const MyApp());
 }
 
@@ -21,7 +19,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        primaryColor: Colors.blueAccent[100],
       ),
       routes: {
         CityWeatherPage.id: (_) => const CityWeatherPage(),

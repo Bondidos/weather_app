@@ -6,6 +6,7 @@ import 'package:weather_app/layers/domain/models/weather_forecast/hourly_forecas
 import 'package:weather_app/layers/presentation/main_page/bloc/main_page_cubit.dart';
 import 'package:weather_app/layers/presentation/main_page/bloc/main_page_state.dart';
 import 'package:weather_app/layers/presentation/main_page/widgets/daily_weather_forecast.dart';
+import 'package:weather_app/layers/presentation/main_page/widgets/divider_with_padding.dart';
 import 'package:weather_app/layers/presentation/main_page/widgets/floating_button_search.dart';
 import 'package:weather_app/injection_container.dart' as di;
 import 'package:weather_app/layers/presentation/main_page/widgets/hourly_weather_item.dart';
@@ -20,6 +21,7 @@ class WeatherByLocationPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
+        backgroundColor: Theme.of(context).primaryColor,
         body: BlocProvider<MainPageCubit>(
           create: (context) => di.inj<MainPageCubit>()..fetchWeather(),
           child: BlocConsumer<MainPageCubit, MainPageState>(
@@ -37,7 +39,6 @@ class WeatherByLocationPage extends StatelessWidget {
                         context.read<MainPageCubit>().fetchWeather(),
                     child: Stack(
                       children: [
-
                         buildWeatherPage(
                           state.weatherCurrentWithForecast!,
                         ),
@@ -76,7 +77,9 @@ class WeatherByLocationPage extends StatelessWidget {
         WeatherSliverAppBar(
           currentWeather: weatherCurrentWithForecast.currentWeather,
         ),
+        const SliverToBoxAdapter(child: DividerWithPadding()),
         buildHourlyWeatherForecastCarousel(hourlyForecast),
+        const SliverToBoxAdapter(child: DividerWithPadding()),
         buildDailyForecastList(dailyForecast),
       ],
     );

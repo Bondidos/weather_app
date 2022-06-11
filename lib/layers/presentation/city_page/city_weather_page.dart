@@ -44,14 +44,12 @@ class CityWeatherPage extends StatelessWidget {
     return Center(
       child: Container(
         width: double.infinity,
-        color: Theme.of(context).colorScheme.primary,
+        color: Theme.of(context).primaryColor,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            CityName(
-              name: currentWeather.name,
-            ),
+            buildCityName(currentWeather.name, context),
             CurrentTemperature(
               temp: currentWeather.temp,
             ),
@@ -72,18 +70,8 @@ class CityWeatherPage extends StatelessWidget {
       ),
     );
   }
-}
 
-class CityName extends StatelessWidget {
-  final String name;
-
-  const CityName({
-    Key? key,
-    required this.name,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
+  Padding buildCityName(String name, BuildContext context) {
     return Padding(
       padding: const EdgeInsets.only(bottom: 15.0),
       child: Text(name, style: Theme.of(context).textTheme.displaySmall),

@@ -18,8 +18,8 @@ class HourlyWeatherItem extends StatelessWidget {
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width / 4;
     return Card(
-      color: Theme.of(context).colorScheme.primary,
-      elevation: 24,
+      color: Colors.transparent,
+      shadowColor: Colors.transparent,
       child: Container(
         padding: const EdgeInsets.only(top: 5, bottom: 5),
         width: width,

@@ -33,6 +33,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "Hours": MessageLookupByLibrary.simpleMessage("ч"),
         "LastUpdate":
             MessageLookupByLibrary.simpleMessage("последнее обновление:"),
+        "LocationServiceAreDisabled":
+            MessageLookupByLibrary.simpleMessage("Геолокация отключена"),
         "Minutes": MessageLookupByLibrary.simpleMessage("мин назад"),
         "NoPermissionGranted":
             MessageLookupByLibrary.simpleMessage("Разрешение не получено"),

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:simple_connection_checker/simple_connection_checker.dart';
+import 'package:weather_app/common/weather_icons.dart';
 import 'package:weather_app/layers/domain/models/current_weather/current_weather.dart';
 import 'package:weather_app/layers/presentation/common/widgets/current_weather_common_widgets.dart';
 import 'package:weather_app/layers/presentation/main_page/widgets/date_widget.dart';
@@ -21,9 +22,11 @@ class WeatherSliverAppBar extends StatelessWidget {
     return SliverAppBar(
       expandedHeight: appBarHeight,
       pinned: true,
+      backgroundColor: Theme.of(context).primaryColor,
       flexibleSpace: FlexibleSpaceBar(
-        collapseMode: CollapseMode.pin,
+        collapseMode: CollapseMode.parallax,
         centerTitle: true,
+        expandedTitleScale: 1.7,
         title: buildTitle(currentWeather.name),
         background: buildCurrentWeatherWidget(currentWeather, context),
       ),
@@ -41,6 +44,14 @@ class WeatherSliverAppBar extends StatelessWidget {
         buildCurrentWeather(currentWeather, context),
         buildLastUpdateTime(context, currentWeather)
       ],
+    );
+  }
+
+  Flexible buildWeatherIcon(String iconId) {
+    return Flexible(
+      child: Image.asset(
+        WeatherIcons.getIconLink(iconId),
+      ),
     );
   }
 
@@ -87,6 +98,10 @@ class WeatherSliverAppBar extends StatelessWidget {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
+        SizedBox(
+          height: MediaQuery.of(context).size.height / 9,
+        ),
+        buildWeatherIcon(currentWeather.weather.icon),
         CurrentTemperature(
           temp: currentWeather.temp,
         ),

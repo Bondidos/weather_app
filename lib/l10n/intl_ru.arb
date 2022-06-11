@@ -9,5 +9,6 @@
   "Days": "д",
   "Minutes": "мин назад",
   "Hours": "ч",
-  "LastUpdate": "последнее обновление:"
+  "LastUpdate": "последнее обновление:",
+  "LocationServiceAreDisabled": "Геолокация отключена"
 }

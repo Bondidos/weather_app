@@ -33,6 +33,8 @@ class MessageLookup extends MessageLookupByLibrary {
             "Can not get Location. Time expired"),
         "Hours": MessageLookupByLibrary.simpleMessage("h"),
         "LastUpdate": MessageLookupByLibrary.simpleMessage("Last update:"),
+        "LocationServiceAreDisabled": MessageLookupByLibrary.simpleMessage(
+            "Location services are disabled"),
         "Minutes": MessageLookupByLibrary.simpleMessage("min ago"),
         "NoPermissionGranted":
             MessageLookupByLibrary.simpleMessage("No Permission Granted"),

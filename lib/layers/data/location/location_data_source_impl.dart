@@ -9,15 +9,21 @@ class LocationDataSourceImpl extends LocationDataSource {
 
   @override
   Future<LatLng> getCurrentPosition() async {
+    bool serviceEnabled = await Geolocator.isLocationServiceEnabled();
+    if (!serviceEnabled) throw Exception(S.current.LocationServiceAreDisabled);
     await _checkPermission();
     return _findCurrentPosition();
   }
 
   Future<void> _checkPermission() async {
-    final LocationPermission permission = await Geolocator.checkPermission();
+    LocationPermission permission = await Geolocator.checkPermission();
     if (permission == LocationPermission.denied ||
         permission == LocationPermission.deniedForever) {
-      throw Exception(S.current.NoPermissionGranted);
+      permission = await Geolocator.requestPermission();
+      if (permission == LocationPermission.denied ||
+          permission == LocationPermission.deniedForever) {
+        throw Exception(S.current.NoPermissionGranted);
+      }
     }
   }
 

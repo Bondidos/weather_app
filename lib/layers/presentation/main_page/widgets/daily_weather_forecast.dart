@@ -4,6 +4,8 @@ import 'package:weather_app/layers/domain/models/weather/weather.dart';
 import 'package:weather_app/layers/domain/models/weather_forecast/daily_forecast.dart';
 import 'package:weather_app/layers/presentation/main_page/widgets/date_widget.dart';
 
+import 'divider_with_padding.dart';
+
 class DailyWeatherForecast extends StatelessWidget {
   final DailyForecast dailyForecast;
 
@@ -14,28 +16,33 @@ class DailyWeatherForecast extends StatelessWidget {
   Widget build(BuildContext context) {
     double height = MediaQuery.of(context).size.height / 8;
 
-    return Card(
-      color: Theme.of(context).colorScheme.primary,
-      elevation: 24,
-      child: Container(
-        padding: const EdgeInsets.only(top: 5, bottom: 5),
-        height: height,
-        width: double.infinity,
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            DateWidget(
-              timeStamp: dailyForecast.timeStamp,
+    return Column(
+      children: [
+        Card(
+          color: Colors.transparent,
+          shadowColor: Colors.transparent,
+          child: Container(
+            padding: const EdgeInsets.only(top: 5, bottom: 5),
+            height: height,
+            width: double.infinity,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                DateWidget(
+                  timeStamp: dailyForecast.timeStamp,
+                ),
+                buildWeatherIconWithDescription(dailyForecast.weather),
+                buildMaxMinTemperature(
+                  dailyForecast.maxTemp,
+                  dailyForecast.minTemp,
+                ),
+              ],
             ),
-            buildWeatherIconWithDescription(dailyForecast.weather),
-            buildMaxMinTemperature(
-              dailyForecast.maxTemp,
-              dailyForecast.minTemp,
-            ),
-          ],
+          ),
         ),
-      ),
+        const DividerWithPadding(),
+      ],
     );
   }
 

@@ -9,5 +9,6 @@
   "Days": "d",
   "Minutes": "min ago",
   "Hours": "h",
-  "LastUpdate": "Last update:"
+  "LastUpdate": "Last update:",
+  "LocationServiceAreDisabled": "Location services are disabled"
 }

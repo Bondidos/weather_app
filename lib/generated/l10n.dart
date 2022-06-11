@@ -149,6 +149,16 @@ class S {
       args: [],
     );
   }
+
+  /// `Location services are disabled`
+  String get LocationServiceAreDisabled {
+    return Intl.message(
+      'Location services are disabled',
+      name: 'LocationServiceAreDisabled',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {
