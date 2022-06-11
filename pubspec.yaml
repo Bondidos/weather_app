@@ -41,7 +41,6 @@ dependencies:
 
   # Geo
   geolocator: 8.2.1
-  latlng: 0.1.0
 
   #date_format + l18n
   intl: 0.17.0
@@ -62,13 +61,20 @@ dev_dependencies:
   build_runner: 2.1.8
   retrofit_generator: 4.0.1
 
+  flutter_launcher_icons: ^0.9.3
+
+flutter_icons:
+  android: true
+  ios: true
+  image_path: "assets/weather_app_icon.png"
+
+
 flutter:
 
   uses-material-design: true
 
   assets:
     - assets/weather_icons/
-    - assets/background/
 
 flutter_intl:
   main_locale: en

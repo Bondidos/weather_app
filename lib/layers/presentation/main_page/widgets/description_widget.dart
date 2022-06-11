@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 class Description extends StatelessWidget {
   final String description;
+
   const Description({
     Key? key,
     required this.description,
@@ -13,7 +14,10 @@ class Description extends StatelessWidget {
       padding: const EdgeInsets.only(bottom: 30.0),
       child: Text(
         description,
-        style: Theme.of(context).textTheme.headline5,
+        style: Theme.of(context)
+            .textTheme
+            .headline5
+            ?.copyWith(color: Colors.white),
       ),
     );
   }

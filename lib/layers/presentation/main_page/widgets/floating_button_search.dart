@@ -37,6 +37,7 @@ class FloatingButtonSearch extends StatelessWidget {
                 padding: EdgeInsets.all(15.0),
                 child: Icon(
                   Icons.search,
+                  color: Colors.white,
                   size: 30,
                 ),
               ),

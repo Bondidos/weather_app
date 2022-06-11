@@ -70,5 +70,6 @@ class HourlyWeatherItem extends StatelessWidget {
     );
   }
 
-  Text buildTemperature(double temp) => Text("$temp\u00B0");
+  Text buildTemperature(double temp) =>
+      Text("${temp.toStringAsFixed(0)}\u00B0");
 }

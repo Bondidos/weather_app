@@ -38,6 +38,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "Minutes": MessageLookupByLibrary.simpleMessage("min ago"),
         "NoPermissionGranted":
             MessageLookupByLibrary.simpleMessage("No Permission Granted"),
-        "SearchCity": MessageLookupByLibrary.simpleMessage("Search city")
+        "SearchCity": MessageLookupByLibrary.simpleMessage("Search city"),
+        "Tomorrow": MessageLookupByLibrary.simpleMessage("Tomorrow")
       };
 }

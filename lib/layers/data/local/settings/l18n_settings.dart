@@ -11,16 +11,20 @@ class LocalisationSettingsImpl extends LocalisationSettings {
 
   LocalisationSettingsImpl({
     required this.sharedPreferences,
-  }) {
+  });
+
+  @override
+  String get currentLanguage {
+    syncLanguage();
+    return sharedPreferences.getString(currentLanguageKey) ?? notPicked;
+  }
+
+  void syncLanguage() {
     final String defaultLocale = Platform.localeName;
     (defaultLocale.contains(languageEnglish))
         ? _setEnglishLanguage()
         : _setRussianLanguage();
   }
-
-  @override
-  String get currentLanguage =>
-      sharedPreferences.getString(currentLanguageKey) ?? notPicked;
 
   void _setRussianLanguage() =>
       sharedPreferences.setString(currentLanguageKey, languageRussian);

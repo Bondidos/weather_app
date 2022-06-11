@@ -19,15 +19,27 @@ class CityWeatherPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(S.current.CurrentWeather),
+        backgroundColor: Theme.of(context).primaryColor,
+        title: Text(
+          S.current.CurrentWeather,
+          style: const TextStyle().apply(color: Colors.white),
+        ),
       ),
       body: BlocProvider<CityWeatherCubit>(
         create: (_) => di.inj<CityWeatherCubit>()..fetchWeather(),
         child: BlocConsumer<CityWeatherCubit, CityWeatherState>(
-          listener: (context, state) {},
+          listener: (context, state) {
+            if (state is CityWeatherError) {
+              _showSnackBar(context, state.message);
+            }
+          },
           builder: (context, state) {
             if (state.status == CityWeatherStatus.loaded) {
-              return buildCurrentWeather(state.currentWeather, context);
+              return RefreshIndicator(
+                onRefresh: () =>
+                    context.read<CityWeatherCubit>().fetchWeather(),
+                child: buildCurrentWeather(state.currentWeather, context),
+              );
             }
             return const Center(
               child: CircularProgressIndicator(),
@@ -38,34 +50,50 @@ class CityWeatherPage extends StatelessWidget {
     );
   }
 
+  _showSnackBar(BuildContext context, String message) {
+    return ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text(
+          message,
+        ),
+        duration: const Duration(seconds: 2),
+      ),
+    );
+  }
+
   Widget buildCurrentWeather(
-      CurrentWeather? currentWeather, BuildContext context) {
+    CurrentWeather? currentWeather,
+    BuildContext context,
+  ) {
     if (currentWeather == null) return Container();
-    return Center(
-      child: Container(
-        width: double.infinity,
-        color: Theme.of(context).primaryColor,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            buildCityName(currentWeather.name, context),
-            CurrentTemperature(
-              temp: currentWeather.temp,
-            ),
-            Padding(
-              padding: const EdgeInsets.only(bottom: 15),
-              child: Image.asset(
-                WeatherIcons.getIconLink(currentWeather.weather.icon),
+    return SingleChildScrollView(
+      child: Center(
+        child: Container(
+          width: double.infinity,
+          height: MediaQuery.of(context).size.height,
+          color: Theme.of(context).primaryColor,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              buildCityName(currentWeather.name, context),
+              CurrentTemperature(
+                temp: currentWeather.temp,
               ),
-            ),
-            MaxAndMinTemperature(
-              tempMax: currentWeather.tempMax,
-              tempMin: currentWeather.tempMin,
-            ),
-            Description(description: currentWeather.weather.description),
-            DateWidget(timeStamp: currentWeather.timeStamp),
-          ],
+              Padding(
+                padding: const EdgeInsets.only(bottom: 15),
+                child: Image.asset(
+                  WeatherIcons.getIconLink(currentWeather.weather.icon),
+                ),
+              ),
+              MaxAndMinTemperature(
+                tempMax: currentWeather.tempMax,
+                tempMin: currentWeather.tempMin,
+              ),
+              Description(description: currentWeather.weather.description),
+              DateWidget(timeStamp: currentWeather.timeStamp),
+            ],
+          ),
         ),
       ),
     );
@@ -74,7 +102,12 @@ class CityWeatherPage extends StatelessWidget {
   Padding buildCityName(String name, BuildContext context) {
     return Padding(
       padding: const EdgeInsets.only(bottom: 15.0),
-      child: Text(name, style: Theme.of(context).textTheme.displaySmall),
+      child: Text(
+        name,
+        style: Theme.of(context).textTheme.displaySmall?.apply(
+              color: Colors.white,
+            ),
+      ),
     );
   }
 }

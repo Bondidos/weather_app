@@ -159,6 +159,16 @@ class S {
       args: [],
     );
   }
+
+  /// `Tomorrow`
+  String get Tomorrow {
+    return Intl.message(
+      'Tomorrow',
+      name: 'Tomorrow',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

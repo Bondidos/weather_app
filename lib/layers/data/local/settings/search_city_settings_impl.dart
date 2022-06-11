@@ -1,6 +1,6 @@
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:weather_app/layers/data/sources/local/settings/search_city_settings.dart';
-import 'package:latlng/src/latlng.dart';
+import 'package:weather_app/layers/domain/models/coordinates/lat_lang.dart';
 
 const latitude = 'City lat';
 const longitude = 'City lng';

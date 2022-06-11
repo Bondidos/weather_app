@@ -32,11 +32,10 @@ class SearchCityByName extends StatelessWidget {
               padding: const EdgeInsets.all(8.0),
               child: BlocProvider<SearchCityCubit>(
                 create: (_) => di.inj<SearchCityCubit>()..init(),
-                child: BlocConsumer<SearchCityCubit, SearchCityState>(
-                  listener: (context, state) {},//todo snackBar
+                child: BlocBuilder<SearchCityCubit, SearchCityState>(
                   builder: (context, state) {
                     SearchCityCubit cubit = context.read<SearchCityCubit>();
-                    return buildSearchFieldAndList(state,cubit);
+                    return buildSearchFieldAndList(state, cubit);
                   },
                 ),
               ),
@@ -59,7 +58,8 @@ class SearchCityByName extends StatelessWidget {
 
   TextField buildSearchField(SearchCityCubit cubit) {
     return TextField(
-      cursorColor: Colors.black,
+      style: const TextStyle().apply(color: Colors.white),
+      cursorColor: Colors.white,
       decoration: InputDecoration(
         fillColor: Colors.white24,
         border: const OutlineInputBorder(
@@ -81,17 +81,24 @@ class SearchCityByName extends StatelessWidget {
 
   ListView buildSearchList(List<City> foundList) {
     return ListView.builder(
-        itemCount: foundList.length,
-        itemBuilder: (context, index) {
-          SearchCityCubit cubit = context.read<SearchCityCubit>();
-          return ListTile(
-            onTap: () async {
-              await cubit.cityPicked(index);
-              Navigator.of(context).pushNamed(CityWeatherPage.id);
-            },
-            title: Text(foundList[index].name),
-            subtitle: Text(foundList[index].country),
-          );
-        });
+      itemCount: foundList.length,
+      itemBuilder: (context, index) {
+        SearchCityCubit cubit = context.read<SearchCityCubit>();
+        return ListTile(
+          onTap: () async {
+            await cubit.cityPicked(index);
+            Navigator.of(context).pushReplacementNamed(CityWeatherPage.id);
+          },
+          title: Text(
+            foundList[index].name,
+            style: const TextStyle().apply(color: Colors.white),
+          ),
+          subtitle: Text(
+            foundList[index].country,
+            style: const TextStyle().apply(color: Colors.white),
+          ),
+        );
+      },
+    );
   }
 }

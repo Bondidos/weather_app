@@ -10,5 +10,6 @@
   "Minutes": "мин назад",
   "Hours": "ч",
   "LastUpdate": "последнее обновление:",
-  "LocationServiceAreDisabled": "Геолокация отключена"
+  "LocationServiceAreDisabled": "Геолокация отключена",
+  "Tomorrow": "Завтра"
 }

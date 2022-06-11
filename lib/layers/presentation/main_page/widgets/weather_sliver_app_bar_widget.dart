@@ -33,8 +33,12 @@ class WeatherSliverAppBar extends StatelessWidget {
     );
   }
 
-  Align buildTitle(String cityName) =>
-      Align(alignment: Alignment.center, child: Text(cityName));
+  Align buildTitle(String cityName) => Align(
+      alignment: Alignment.center,
+      child: Text(
+        cityName,
+        style: const TextStyle().apply(color: Colors.white),
+      ));
 
   Widget buildCurrentWeatherWidget(
       CurrentWeather currentWeather, BuildContext context) {

@@ -12,6 +12,8 @@ import 'package:weather_app/injection_container.dart' as di;
 import 'package:weather_app/layers/presentation/main_page/widgets/hourly_weather_item.dart';
 import 'package:weather_app/layers/presentation/main_page/widgets/weather_sliver_app_bar_widget.dart';
 
+const firstIndexInList = 0;
+
 class WeatherByLocationPage extends StatelessWidget {
   const WeatherByLocationPage({Key? key}) : super(key: key);
 
@@ -88,9 +90,13 @@ class WeatherByLocationPage extends StatelessWidget {
   SliverList buildDailyForecastList(List<DailyForecast> dailyForecast) {
     return SliverList(
       delegate: SliverChildBuilderDelegate(
-        (context, index) => DailyWeatherForecast(
+        (context, index) {
+          bool isTomorrow = (index == firstIndexInList) ? true : false;
+          return DailyWeatherForecast(
+          isTomorrow: isTomorrow,
           dailyForecast: dailyForecast[index],
-        ),
+        );
+        },
         childCount: dailyForecast.length,
       ),
     );
@@ -100,7 +106,7 @@ class WeatherByLocationPage extends StatelessWidget {
       List<HourlyForecast> hourlyForecast) {
     return SliverToBoxAdapter(
       child: SizedBox(
-        height: 175, // todo use screen sizes for display adaptations
+        height: 175,
         child: ListView.builder(
           scrollDirection: Axis.horizontal,
           itemCount: hourlyForecast.length,

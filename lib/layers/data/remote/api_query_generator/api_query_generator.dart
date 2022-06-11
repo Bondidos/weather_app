@@ -1,4 +1,3 @@
-import 'package:latlng/latlng.dart';
 import 'package:weather_app/common/constants.dart';
 import 'package:weather_app/layers/data/sources/local/settings/l18n_settings.dart';
 import 'package:weather_app/layers/data/sources/local/settings/search_city_settings.dart';
@@ -7,6 +6,7 @@ import 'package:weather_app/layers/data/remote/api_query_generator/api_keys.dart
     as key;
 import 'package:weather_app/layers/data/remote/api_query_generator/api_query_parameters.dart'
     as param;
+import 'package:weather_app/layers/domain/models/coordinates/lat_lang.dart';
 
 class ApiQueryGenerator {
   final LocationDataSource locationDataSource;

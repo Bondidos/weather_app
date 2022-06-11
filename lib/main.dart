@@ -20,6 +20,14 @@ class MyApp extends StatelessWidget {
       title: 'Flutter Demo',
       theme: ThemeData(
         primaryColor: Colors.blueAccent[100],
+        textTheme: const TextTheme(
+          bodyText1: TextStyle(),
+          bodyText2: TextStyle(),
+        ).apply(
+          bodyColor: Colors.white,
+          displayColor: Colors.white,
+            decorationColor: Colors.white,
+        ),
       ),
       routes: {
         CityWeatherPage.id: (_) => const CityWeatherPage(),

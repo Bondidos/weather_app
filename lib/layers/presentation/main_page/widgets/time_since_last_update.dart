@@ -46,10 +46,11 @@ class TimeSinceLastUpdate extends StatelessWidget {
 
     if (days > 0) {
       return '$days ${S.current.Days} $hours ${S.current.Hours} $minutes ${S.current.Minutes}';
-    } else if (hours > 0) {
+    }
+    if (hours > 0) {
       return '$hours ${S.current.Hours} $minutes ${S.current.Minutes}';
     } else {
-      return '$minutes $minutes ${S.current.Minutes}';
+      return '$minutes ${S.current.Minutes}';
     }
   }
 }

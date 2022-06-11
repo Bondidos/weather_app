@@ -15,8 +15,11 @@ class MaxAndMinTemperature extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.only(bottom: 15.0),
       child: Text(
-        "$tempMax\u00B0/$tempMin\u00B0",
-        style: Theme.of(context).textTheme.headline5,
+        "${tempMax.toStringAsFixed(0)}\u00B0/${tempMin.toStringAsFixed(0)}\u00B0",
+        style: Theme.of(context)
+            .textTheme
+            .headline5
+            ?.copyWith(color: Colors.white),
       ),
     );
   }

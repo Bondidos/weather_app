@@ -38,7 +38,8 @@ class MainPageCubit extends Cubit<MainPageState> {
       );
 
   MainPageState _loadedState(
-          WeatherCurrentWithForecast weatherCurrentWithForecast) =>
+    WeatherCurrentWithForecast weatherCurrentWithForecast,
+  ) =>
       state.copyWith(
         weatherCurrentWithForecast: weatherCurrentWithForecast,
         status: MainPageStatus.loaded,

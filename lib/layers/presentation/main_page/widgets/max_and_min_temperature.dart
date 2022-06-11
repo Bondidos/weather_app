@@ -13,8 +13,11 @@ class CurrentTemperature extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.only(bottom: 15.0),
       child: Text(
-        "$temp\u00B0",
-        style: Theme.of(context).textTheme.displayMedium,
+        "${temp.toStringAsFixed(0)}\u00B0",
+        style: Theme.of(context)
+            .textTheme
+            .displayMedium
+            ?.copyWith(color: Colors.white),
       ),
     );
   }

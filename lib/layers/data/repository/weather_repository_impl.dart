@@ -1,7 +1,7 @@
 import 'package:weather_app/generated/l10n.dart';
 import 'package:weather_app/layers/data/models/remote/current_weather/current_weather_api.dart';
 import 'package:weather_app/layers/data/models/remote/weather_forecast_api/hourly/weather_forecast_api.dart';
-import 'package:weather_app/layers/data/repository/extensions.dart';
+import 'package:weather_app/layers/data/repository/extensions/weather_repo_ext.dart';
 import 'package:weather_app/layers/data/sources/local/weather_local_data_source.dart';
 import 'package:weather_app/layers/data/sources/remote/remote_data_source.dart';
 import 'package:weather_app/layers/domain/models/current_weather/current_weather.dart';

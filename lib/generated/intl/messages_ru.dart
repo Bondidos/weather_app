@@ -38,6 +38,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "Minutes": MessageLookupByLibrary.simpleMessage("мин назад"),
         "NoPermissionGranted":
             MessageLookupByLibrary.simpleMessage("Разрешение не получено"),
-        "SearchCity": MessageLookupByLibrary.simpleMessage("Поиск города")
+        "SearchCity": MessageLookupByLibrary.simpleMessage("Поиск города"),
+        "Tomorrow": MessageLookupByLibrary.simpleMessage("Завтра")
       };
 }
