@@ -11,5 +11,6 @@
   "Hours": "ч",
   "LastUpdate": "последнее обновление:",
   "LocationServiceAreDisabled": "Геолокация отключена",
-  "Tomorrow": "Завтра"
+  "Tomorrow": "Завтра",
+  "NoCachedWeather": "Нет сохранённых данных, активируйте интернет соединение и геолокацию"
 }

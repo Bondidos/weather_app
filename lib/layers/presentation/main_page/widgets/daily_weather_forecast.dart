@@ -3,9 +3,8 @@ import 'package:weather_app/common/weather_icons.dart';
 import 'package:weather_app/generated/l10n.dart';
 import 'package:weather_app/layers/domain/models/weather/weather.dart';
 import 'package:weather_app/layers/domain/models/weather_forecast/daily_forecast.dart';
-import 'package:weather_app/layers/presentation/main_page/widgets/date_widget.dart';
-
-import 'divider_with_padding.dart';
+import 'package:weather_app/layers/presentation/common/widgets/date_widget.dart';
+import 'package:weather_app/layers/presentation/main_page/widgets/divider_with_padding.dart';
 
 class DailyWeatherForecast extends StatelessWidget {
   final DailyForecast dailyForecast;

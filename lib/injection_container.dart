@@ -7,6 +7,7 @@ import 'package:weather_app/layers/data/local/settings/search_city_settings_impl
 import 'package:weather_app/layers/data/remote/api_client/api_client.dart';
 import 'package:weather_app/layers/data/repository/weather_repository_impl.dart';
 import 'package:weather_app/layers/domain/use_case/fetch_weather_for_city_use_case.dart';
+import 'package:weather_app/layers/domain/use_case/subscribe_language_changed_use_case.dart';
 import 'layers/data/local/drift_database/database.dart';
 import 'layers/data/local/settings/l18n_settings.dart';
 import 'layers/data/local/weather_local_data_source_impl.dart';
@@ -36,6 +37,7 @@ Future<void> init() async {
 
   inj.registerFactory<CityWeatherCubit>(() => CityWeatherCubit(
         fetchWeatherForCityUseCase: inj(),
+        subscribeLanguageChangedUseCase: inj(),
       ));
 
   inj.registerFactory<SearchCityCubit>(() => SearchCityCubit(
@@ -45,7 +47,13 @@ Future<void> init() async {
 
   inj.registerFactory<MainPageCubit>(() => MainPageCubit(
         fetchWeatherFromApiOrCacheUseCase: inj(),
+        subscribeLanguageChangedUseCase: inj(),
       ));
+
+  inj.registerFactory<SubscribeLanguageChangedUseCase>(
+      () => SubscribeLanguageChangedUseCase(
+            weatherRepository: inj(),
+          ));
 
   inj.registerFactory<FetchWeatherForCityUseCase>(
       () => FetchWeatherForCityUseCase(
@@ -79,6 +87,7 @@ Future<void> init() async {
   inj.registerLazySingleton<WeatherRepository>(() => WeatherRepositoryImpl(
         remoteDataSource: inj(),
         weatherLocalDataSource: inj(),
+        localisationSettings: inj(),
       ));
   inj.registerFactory<WeatherLocalDataSource>(() => WeatherLocalDataSourceImpl(
         dailyForecastDao: inj(),
@@ -105,7 +114,7 @@ Future<void> init() async {
 
   inj.registerFactory<LocationDataSource>(() => LocationDataSourceImpl());
 
-  inj.registerFactory<LocalisationSettings>(
+  inj.registerLazySingleton<LocalisationSettings>(
     () => LocalisationSettingsImpl(
       sharedPreferences: inj(),
     ),

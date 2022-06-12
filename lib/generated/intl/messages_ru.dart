@@ -36,6 +36,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "LocationServiceAreDisabled":
             MessageLookupByLibrary.simpleMessage("Геолокация отключена"),
         "Minutes": MessageLookupByLibrary.simpleMessage("мин назад"),
+        "NoCachedWeather": MessageLookupByLibrary.simpleMessage(
+            "Нет сохранённых данных, активируйте интернет соединение и геолокацию"),
         "NoPermissionGranted":
             MessageLookupByLibrary.simpleMessage("Разрешение не получено"),
         "SearchCity": MessageLookupByLibrary.simpleMessage("Поиск города"),

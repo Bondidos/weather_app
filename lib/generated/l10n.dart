@@ -169,6 +169,16 @@ class S {
       args: [],
     );
   }
+
+  /// `No saved data, activate internet connection and geo data`
+  String get NoCachedWeather {
+    return Intl.message(
+      'No saved data, activate internet connection and geo data',
+      name: 'NoCachedWeather',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

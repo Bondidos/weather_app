@@ -2,20 +2,23 @@ import 'package:weather_app/generated/l10n.dart';
 import 'package:weather_app/layers/data/models/remote/current_weather/current_weather_api.dart';
 import 'package:weather_app/layers/data/models/remote/weather_forecast_api/hourly/weather_forecast_api.dart';
 import 'package:weather_app/layers/data/repository/extensions/weather_repo_ext.dart';
+import 'package:weather_app/layers/data/sources/local/settings/l18n_settings.dart';
 import 'package:weather_app/layers/data/sources/local/weather_local_data_source.dart';
 import 'package:weather_app/layers/data/sources/remote/remote_data_source.dart';
 import 'package:weather_app/layers/domain/models/current_weather/current_weather.dart';
-import 'package:weather_app/layers/domain/models/weather_current_with_forecast/weather_cuurent_with_forecast.dart';
+import 'package:weather_app/layers/domain/models/weather_current_with_forecast/weather_current_with_forecast.dart';
 import 'package:weather_app/layers/domain/repository/weather_repository.dart';
 import 'package:simple_connection_checker/simple_connection_checker.dart';
 
 class WeatherRepositoryImpl extends WeatherRepository {
   final RemoteDataSource remoteDataSource;
   final WeatherLocalDataSource weatherLocalDataSource;
+  final LocalisationSettings localisationSettings;
 
   WeatherRepositoryImpl({
     required this.remoteDataSource,
     required this.weatherLocalDataSource,
+    required this.localisationSettings,
   });
 
   Future<bool> _isConnectedToInternet() async =>
@@ -75,13 +78,34 @@ class WeatherRepositoryImpl extends WeatherRepository {
           .saveCurrentWithForecast(weatherCurrentWithForecast);
 
   Future<WeatherCurrentWithForecast>
-      _weatherCurrentWithForecastFromLocal() async =>
-          weatherLocalDataSource.fetchActualDataFromLocal();
+      _weatherCurrentWithForecastFromLocal() async {
+    final WeatherCurrentWithForecast weatherCurrentWithForecast;
+    try {
+      weatherCurrentWithForecast =
+          await weatherLocalDataSource.fetchActualDataFromLocal();
+    } catch (e) {
+      throw Exception(S.current.NoCachedWeather);
+    }
+    return weatherCurrentWithForecast;
+  }
 
   @override
   Future<CurrentWeather> fetchCurrentWeatherForCity() async {
-    CurrentWeatherApi currentWeatherApi =
-        await remoteDataSource.fetchCurrentWeatherForCity();
+    CurrentWeatherApi currentWeatherApi = await _fetchCurrentWeatherForCity();
     return currentWeatherApi.toCurrentWeather();
   }
+
+  Future<CurrentWeatherApi> _fetchCurrentWeatherForCity() async {
+    final CurrentWeatherApi currentWeatherApi;
+    try {
+      currentWeatherApi = await remoteDataSource.fetchCurrentWeatherForCity();
+    } catch (e) {
+      throw Exception(S.current.CheckConnection);
+    }
+    return currentWeatherApi;
+  }
+
+  @override
+  Stream<String> subscribeLanguageChanged() =>
+      localisationSettings.subscribeLanguageChanged();
 }

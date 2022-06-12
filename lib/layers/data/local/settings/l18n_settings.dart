@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:rxdart/rxdart.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:weather_app/common/constants.dart';
 import 'package:weather_app/layers/data/sources/local/settings/l18n_settings.dart';
@@ -11,24 +12,35 @@ class LocalisationSettingsImpl extends LocalisationSettings {
 
   LocalisationSettingsImpl({
     required this.sharedPreferences,
-  });
+  }) {
+    _syncLanguage;
+  }
+
+  PublishSubject<String> languageStream = PublishSubject<String>();
 
   @override
-  String get currentLanguage {
-    syncLanguage();
-    return sharedPreferences.getString(currentLanguageKey) ?? notPicked;
-  }
+  String get currentLanguage =>
+      sharedPreferences.getString(currentLanguageKey) ?? notPicked;
 
-  void syncLanguage() {
+  void _syncLanguage() {
     final String defaultLocale = Platform.localeName;
     (defaultLocale.contains(languageEnglish))
-        ? _setEnglishLanguage()
-        : _setRussianLanguage();
+        ? setEnglishLanguage()
+        : setRussianLanguage();
   }
 
-  void _setRussianLanguage() =>
-      sharedPreferences.setString(currentLanguageKey, languageRussian);
+  @override
+  void setRussianLanguage() {
+    sharedPreferences.setString(currentLanguageKey, languageRussian);
+    languageStream.add(languageRussian);
+  }
 
-  void _setEnglishLanguage() =>
-      sharedPreferences.setString(currentLanguageKey, languageEnglish);
+  @override
+  void setEnglishLanguage() {
+    sharedPreferences.setString(currentLanguageKey, languageEnglish);
+    languageStream.add(languageEnglish);
+  }
+
+  @override
+  Stream<String> subscribeLanguageChanged() => languageStream;
 }

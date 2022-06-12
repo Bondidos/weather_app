@@ -6,10 +6,10 @@ import 'package:weather_app/layers/domain/models/current_weather/current_weather
 import 'package:weather_app/layers/presentation/city_page/bloc/city_weather_cubit.dart';
 import 'package:weather_app/injection_container.dart' as di;
 import 'package:weather_app/layers/presentation/city_page/bloc/city_weather_state.dart';
-import 'package:weather_app/layers/presentation/common/widgets/current_weather_common_widgets.dart';
-import 'package:weather_app/layers/presentation/main_page/widgets/date_widget.dart';
-import 'package:weather_app/layers/presentation/main_page/widgets/description_widget.dart';
-import 'package:weather_app/layers/presentation/main_page/widgets/max_and_min_temperature.dart';
+import 'package:weather_app/layers/presentation/common/widgets/max_and_min_temperature.dart';
+import 'package:weather_app/layers/presentation/common/widgets/date_widget.dart';
+import 'package:weather_app/layers/presentation/common/widgets/description_widget.dart';
+import 'package:weather_app/layers/presentation/common/widgets/current_temperature.dart';
 
 class CityWeatherPage extends StatelessWidget {
   const CityWeatherPage({Key? key}) : super(key: key);
@@ -18,6 +18,7 @@ class CityWeatherPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Theme.of(context).primaryColor,
       appBar: AppBar(
         backgroundColor: Theme.of(context).primaryColor,
         title: Text(
@@ -26,7 +27,7 @@ class CityWeatherPage extends StatelessWidget {
         ),
       ),
       body: BlocProvider<CityWeatherCubit>(
-        create: (_) => di.inj<CityWeatherCubit>()..fetchWeather(),
+        create: (_) => di.inj<CityWeatherCubit>()..fetchCurrentWeather(),
         child: BlocConsumer<CityWeatherCubit, CityWeatherState>(
           listener: (context, state) {
             if (state is CityWeatherError) {
@@ -34,17 +35,38 @@ class CityWeatherPage extends StatelessWidget {
             }
           },
           builder: (context, state) {
-            if (state.status == CityWeatherStatus.loaded) {
-              return RefreshIndicator(
-                onRefresh: () =>
-                    context.read<CityWeatherCubit>().fetchWeather(),
-                child: buildCurrentWeather(state.currentWeather, context),
-              );
+            switch (state.status) {
+              case CityWeatherStatus.initial:
+                return const Center(child: CircularProgressIndicator());
+              case CityWeatherStatus.loading:
+                return const Center(child: CircularProgressIndicator());
+              case CityWeatherStatus.loaded:
+                return buildBuildPage(context, state);
+              case CityWeatherStatus.error:
+                return buildError(context);
             }
-            return const Center(
-              child: CircularProgressIndicator(),
-            );
           },
+        ),
+      ),
+    );
+  }
+
+  RefreshIndicator buildBuildPage(
+      BuildContext context, CityWeatherState state) {
+    return RefreshIndicator(
+      onRefresh: () => context.read<CityWeatherCubit>().fetchCurrentWeather(),
+      child: buildCurrentWeather(state.currentWeather, context),
+    );
+  }
+
+  Center buildError(BuildContext context) {
+    return Center(
+      child: IconButton(
+        onPressed: () => context.read<CityWeatherCubit>().fetchCurrentWeather(),
+        icon: const Icon(
+          Icons.refresh,
+          size: 45,
+          color: Colors.white,
         ),
       ),
     );

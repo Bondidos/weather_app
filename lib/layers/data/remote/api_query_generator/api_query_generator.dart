@@ -39,12 +39,12 @@ class ApiQueryGenerator {
   }
 
   Map<String, dynamic> generateCurrentWeatherForCityQuery() => {
-      key.longitude: cityLatLng.longitude,
-      key.latitude: cityLatLng.latitude,
-      key.measurement: _currentMeasurement,
-      key.language: currentLanguage,
-      key.applicationId: param.applicationKey
-    };
+        key.longitude: cityLatLng.longitude,
+        key.latitude: cityLatLng.latitude,
+        key.measurement: _currentMeasurement,
+        key.language: currentLanguage,
+        key.applicationId: param.applicationKey
+      };
 
   Future<Map<String, dynamic>> generateHourlyWeatherForecastQuery() async {
     LatLng currentPosition = await locationDataSource.getCurrentPosition();
@@ -62,8 +62,9 @@ class ApiQueryGenerator {
     };
   }
 
-  Map<String, dynamic> generateSearchCityByNameQuery(
-          {required String search}) =>
+  Map<String, dynamic> generateSearchCityByNameQuery({
+    required String search,
+  }) =>
       {
         key.cityName: search,
         key.applicationId: param.applicationKey,

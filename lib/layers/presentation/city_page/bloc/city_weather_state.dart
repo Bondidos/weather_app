@@ -1,7 +1,7 @@
 import 'package:equatable/equatable.dart';
 import 'package:weather_app/layers/domain/models/current_weather/current_weather.dart';
 
-enum CityWeatherStatus { initial, loading, loaded }
+enum CityWeatherStatus { initial, loading, loaded, error }
 
 class CityWeatherState extends Equatable {
   final CurrentWeather? currentWeather;
@@ -26,9 +26,8 @@ class CityWeatherState extends Equatable {
 
 class CityWeatherError extends CityWeatherState {
   const CityWeatherError({
-    required CurrentWeather? currentWeather,
     required CityWeatherStatus status,
     required this.message,
-  }) : super(currentWeather: currentWeather, status: status);
+  }) : super(currentWeather: null, status: status);
   final String message;
 }

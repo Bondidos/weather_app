@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:weather_app/layers/domain/models/weather_current_with_forecast/weather_cuurent_with_forecast.dart';
+import 'package:weather_app/layers/domain/models/weather_current_with_forecast/weather_current_with_forecast.dart';
 import 'package:weather_app/layers/domain/models/weather_forecast/daily_forecast.dart';
 import 'package:weather_app/layers/domain/models/weather_forecast/hourly_forecast.dart';
 import 'package:weather_app/layers/presentation/main_page/bloc/main_page_cubit.dart';
@@ -21,46 +21,53 @@ class WeatherByLocationPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        backgroundColor: Theme.of(context).primaryColor,
-        body: BlocProvider<MainPageCubit>(
-          create: (context) => di.inj<MainPageCubit>()..fetchWeather(),
-          child: BlocConsumer<MainPageCubit, MainPageState>(
-            listener: (context, state) {
-              if (state is MainPageError) _showSnackBar(context, state.message);
-            },
-            builder: (context, state) {
-              switch (state.status) {
-                case MainPageStatus.loaded:
-                  if (state.weatherCurrentWithForecast == null) {
-                    return Container();
-                  }
-                  return RefreshIndicator(
-                    onRefresh: () =>
-                        context.read<MainPageCubit>().fetchWeather(),
-                    child: Stack(
-                      children: [
-                        buildWeatherPage(
-                          state.weatherCurrentWithForecast!,
-                        ),
-                        const FloatingButtonSearch(heroTag: id),
-                      ],
-                    ),
-                  );
+    return Scaffold(
+      backgroundColor: Theme.of(context).primaryColor,
+      body: BlocProvider<MainPageCubit>(
+        create: (context) => di.inj<MainPageCubit>()..fetchWeather(),
+        child: BlocConsumer<MainPageCubit, MainPageState>(
+          listener: (context, state) {
+            if (state is MainPageError) _showSnackBar(context, state.message);
+          },
+          builder: (context, state) {
+            switch (state.status) {
+              case MainPageStatus.loaded:
+                if (state.weatherCurrentWithForecast == null) {
+                  return Container();
+                }
+                return RefreshIndicator(
+                  onRefresh: () => context.read<MainPageCubit>().fetchWeather(),
+                  child: Stack(
+                    children: [
+                      buildWeatherPage(
+                        state.weatherCurrentWithForecast!,
+                      ),
+                      const FloatingButtonSearch(heroTag: id),
+                    ],
+                  ),
+                );
 
-                case MainPageStatus.initial:
-                  // TODO: Handle this case.
-                  break;
-                case MainPageStatus.loading:
-                  return const Center(child: CircularProgressIndicator());
-                case MainPageStatus.error:
-                  // TODO: Handle this case.
-                  break;
-              }
-              return const Center(child: CircularProgressIndicator());
-            },
-          ),
+              case MainPageStatus.initial:
+                return const Center(child: CircularProgressIndicator());
+              case MainPageStatus.loading:
+                return const Center(child: CircularProgressIndicator());
+              case MainPageStatus.error:
+                return buildError(context);
+            }
+          },
+        ),
+      ),
+    );
+  }
+
+  Center buildError(BuildContext context) {
+    return Center(
+      child: IconButton(
+        onPressed: () => context.read<MainPageCubit>().fetchWeather(),
+        icon: const Icon(
+          Icons.refresh,
+          size: 45,
+          color: Colors.white,
         ),
       ),
     );
@@ -93,9 +100,9 @@ class WeatherByLocationPage extends StatelessWidget {
         (context, index) {
           bool isTomorrow = (index == firstIndexInList) ? true : false;
           return DailyWeatherForecast(
-          isTomorrow: isTomorrow,
-          dailyForecast: dailyForecast[index],
-        );
+            isTomorrow: isTomorrow,
+            dailyForecast: dailyForecast[index],
+          );
         },
         childCount: dailyForecast.length,
       ),

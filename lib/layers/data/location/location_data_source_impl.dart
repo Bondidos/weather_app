@@ -7,8 +7,6 @@ import 'package:weather_app/layers/domain/models/coordinates/lat_lang.dart';
 class LocationDataSourceImpl extends LocationDataSource {
   @override
   Future<LatLng> getCurrentPosition() async {
-    bool serviceEnabled = await Geolocator.isLocationServiceEnabled();
-    if (!serviceEnabled) throw Exception(S.current.LocationServiceAreDisabled);
     await _checkPermission();
     return _findCurrentPosition();
   }

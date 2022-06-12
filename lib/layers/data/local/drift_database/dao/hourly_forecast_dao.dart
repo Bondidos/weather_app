@@ -1,5 +1,5 @@
 import 'package:drift/drift.dart';
-import 'package:weather_app/layers/data/local/drift_database/dao/extensions/hourlu_forecast_ext.dart';
+import 'package:weather_app/layers/data/local/drift_database/dao/extensions/hourly_forecast_ext.dart';
 import 'package:weather_app/layers/data/local/drift_database/database.dart';
 import 'package:weather_app/layers/domain/models/weather_forecast/hourly_forecast.dart';
 

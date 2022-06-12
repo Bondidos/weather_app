@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:simple_connection_checker/simple_connection_checker.dart';
 import 'package:weather_app/common/weather_icons.dart';
 import 'package:weather_app/layers/domain/models/current_weather/current_weather.dart';
-import 'package:weather_app/layers/presentation/common/widgets/current_weather_common_widgets.dart';
-import 'package:weather_app/layers/presentation/main_page/widgets/date_widget.dart';
-import 'package:weather_app/layers/presentation/main_page/widgets/description_widget.dart';
-import 'package:weather_app/layers/presentation/main_page/widgets/max_and_min_temperature.dart';
+import 'package:weather_app/layers/presentation/common/widgets/max_and_min_temperature.dart';
+import 'package:weather_app/layers/presentation/common/widgets/date_widget.dart';
+import 'package:weather_app/layers/presentation/common/widgets/description_widget.dart';
+import 'package:weather_app/layers/presentation/common/widgets/current_temperature.dart';
 import 'package:weather_app/layers/presentation/main_page/widgets/time_since_last_update.dart';
 
 const apiAddress = "openweathermap.org";
@@ -27,6 +27,7 @@ class WeatherSliverAppBar extends StatelessWidget {
         collapseMode: CollapseMode.parallax,
         centerTitle: true,
         expandedTitleScale: 1.7,
+        titlePadding: const EdgeInsets.only(top:20),
         title: buildTitle(currentWeather.name),
         background: buildCurrentWeatherWidget(currentWeather, context),
       ),

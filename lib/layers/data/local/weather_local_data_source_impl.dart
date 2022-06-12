@@ -1,7 +1,7 @@
 import 'package:weather_app/layers/data/local/drift_database/dao/dao.dart';
 import 'package:weather_app/layers/data/sources/local/weather_local_data_source.dart';
 import 'package:weather_app/layers/domain/models/current_weather/current_weather.dart';
-import 'package:weather_app/layers/domain/models/weather_current_with_forecast/weather_cuurent_with_forecast.dart';
+import 'package:weather_app/layers/domain/models/weather_current_with_forecast/weather_current_with_forecast.dart';
 import 'package:weather_app/layers/domain/models/weather_forecast/daily_forecast.dart';
 import 'package:weather_app/layers/domain/models/weather_forecast/hourly_forecast.dart';
 

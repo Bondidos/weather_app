@@ -11,7 +11,7 @@ class Description extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(bottom: 30.0),
+      padding: const EdgeInsets.only(bottom: 50.0),
       child: Text(
         description,
         style: Theme.of(context)
