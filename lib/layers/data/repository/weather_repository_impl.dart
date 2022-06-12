@@ -36,7 +36,7 @@ class WeatherRepositoryImpl extends WeatherRepository {
     WeatherCurrentWithForecast weatherCurrentWithForecast =
         await _createWeatherCurrentWithForecast();
     _saveWeatherCurrentWithForecast(weatherCurrentWithForecast);
-    return weatherCurrentWithForecast;
+    return weatherCurrentWithForecast.copyWithSixHoursForecast();
   }
 
   Future<WeatherCurrentWithForecast> _createWeatherCurrentWithForecast() async {
@@ -47,7 +47,7 @@ class WeatherRepositoryImpl extends WeatherRepository {
       currentWeather: currentWeather,
       dailyForecast: weatherForecastApi.daily.toDailyForecastList(),
       hourlyForecast:
-          weatherForecastApi.hourly.toHourlyForecastList().pickFirstSixHours(),
+          weatherForecastApi.hourly.toHourlyForecastList()
     );
   }
 

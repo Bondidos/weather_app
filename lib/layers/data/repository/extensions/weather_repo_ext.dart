@@ -1,6 +1,7 @@
 import 'package:weather_app/layers/data/models/remote/weather_forecast_api/daily/daily_forecast_api.dart';
 import 'package:weather_app/layers/data/models/remote/weather_forecast_api/hourly/hourly_forecast_api.dart';
 import 'package:weather_app/layers/data/models/remote/weather_forecast_api/hourly/weather_forecast_api.dart';
+import 'package:weather_app/layers/domain/models/weather_current_with_forecast/weather_current_with_forecast.dart';
 import 'package:weather_app/layers/domain/models/weather_forecast/daily_forecast.dart';
 import 'package:weather_app/layers/domain/models/weather_forecast/hourly_forecast.dart';
 
@@ -28,4 +29,13 @@ extension PickSixHoursForecast on WeatherForecastApi {
     }
     return result;
   }
+}
+
+extension MapWeatherCurrentWithForecast on WeatherCurrentWithForecast {
+  WeatherCurrentWithForecast copyWithSixHoursForecast() =>
+      WeatherCurrentWithForecast(
+        currentWeather: currentWeather,
+        dailyForecast: dailyForecast,
+        hourlyForecast: hourlyForecast.pickFirstSixHours(),
+      );
 }
