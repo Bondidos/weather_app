@@ -29,7 +29,7 @@ class FloatingButtonSearch extends StatelessWidget {
           child: Hero(
             tag: heroTag,
             child: Material(
-              color: Theme.of(context).colorScheme.primary,
+              color: Theme.of(context).primaryColor,
               elevation: 24,
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(32)),
@@ -37,6 +37,7 @@ class FloatingButtonSearch extends StatelessWidget {
                 padding: EdgeInsets.all(15.0),
                 child: Icon(
                   Icons.search,
+                  color: Colors.white,
                   size: 30,
                 ),
               ),

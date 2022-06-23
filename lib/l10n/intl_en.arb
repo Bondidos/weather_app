@@ -1,0 +1,16 @@
+{
+  "@@locale": "en",
+  "NoPermissionGranted": "No Permission Granted",
+  "ExceptionTimeExpired": "Can not get Location. Time expired",
+  "ExceptionCheckLocationService": "Please, check is Location Service enabled",
+  "CurrentWeather": "Current weather",
+  "SearchCity": "Search city",
+  "CheckConnection": "Check internet connection",
+  "Days": "d",
+  "Minutes": "min ago",
+  "Hours": "h",
+  "LastUpdate": "Last update:",
+  "LocationServiceAreDisabled": "Location services are disabled",
+  "Tomorrow": "Tomorrow",
+  "NoCachedWeather": "No saved data, activate internet connection and geo data"
+}
